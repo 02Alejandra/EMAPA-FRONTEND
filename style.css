@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f7ff;
+    color: #333;
+}
+
+.wrapper {
+    display: flex;
+}
+
+nav {
+    background-color: #0077cc;
+    padding: 20px;
+    width: 200px; /* Ancho fijo del menú */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: block;
+    margin-bottom: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#contenidoConsultas {
+    flex: 1;
+    padding: 20px;
+    margin-left: 220px; /* Ancho del menú más un margen adicional */
+}
+
+.formulario {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+#resultadoVentana {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f0f7ff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#resultadoContenido {
+    color: #333;
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav {
+        width: 100%;
+    }
+
+    #contenidoConsultas {
+        margin-left: 0;
+    }
+}

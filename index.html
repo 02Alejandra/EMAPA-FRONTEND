@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Consultas</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav>
+            <ul>
+                <li><a href="#" onclick="mostrarFormulario('validaUsuario')">Validar Usuario-</a></li>
+                <li><a href="#" onclick="mostrarFormulario('datosUsuario')">Datos del Usuario</a></li>
+                <li><a href="#" onclick="mostrarFormulario('consultaCliente')">Consulta del Cliente</a></li>
+                <li><a href="#" onclick="mostrarFormulario('consultaFacturasCliente')">Facturas del Cliente-</a></li>
+                <li><a href="#" onclick="mostrarFormulario('consultaFacturasClienteDataset')">Facturas del Cliente
+                        Dataset-</a></li>
+                <li><a href="#" onclick="mostrarFormulario('consultaDetalleFacturasCliente')">Facturas del Cliente
+                        Det-</a>
+                </li>
+                <li><a href="#" onclick="mostrarFormulario('procesoFacturacion')">Proceso de Facturación Int-</a></li>
+                <li><a href="#" onclick="mostrarFormulario('procesoFacturacionSeleccion')">Proceso de Facturación
+                        Selección</a></li>
+                <li><a href="#" onclick="mostrarFormulario('consultaFacturasProcesadas')">Consulta de Facturas
+                        Procesadas-</a></li>
+                <li><a href="#" onclick="mostrarFormulario('consultaFacturaProcesada')">Consulta de Factura
+                        Procesada</a>
+                </li>
+                <li><a href="#" onclick="mostrarFormulario('reversoTransacciones')">Reverso de Transacciones Int</a>
+                </li>
+                <li><a href="#" onclick="mostrarFormulario('reporteTransaccionesRV')">Reporte de Transacciones RV</a>
+                </li>
+                <li><a href="#" onclick="mostrarFormulario('reimpresionComprobante')">Reimpresión del Comprobante</a>
+                </li>
+                <li><a href="#" onclick="mostrarFormulario('registrarFormaPago')">Forma de Pago-</a></li>
+                <li><a href="#" onclick="mostrarFormulario('asignarOpcionMenu')">Usuario de Facturación-</a></li>
+                <li><a href="#" onclick="mostrarFormulario('obtenerFacturasCliente')">Facturas del Cliente Fac_Num</a>
+                </li>
+                <li><a href="#" onclick="mostrarFormulario('insertarUsuarioAutorizado')">Insertar el Usuario
+                        Autorizado</a>
+                </li>
+                <li><a href="#" onclick="mostrarFormulario('obtenerUsuarioAutorizado')">Usuario Autorizado-</a></li>
+                <li><a href="#" onclick="mostrarFormulario('obtenerFacturasClienteAutorizadas')">Facturas del Cliente
+                        Autorizadas-</a></li>
+            </ul>
+        </nav>
+
+        <!-- Ventana flotante para mostrar resultados -->
+        <div id="resultadoVentana" class="ventana-flotante">
+            <span class="cerrar" onclick="cerrarVentana()">X</span>
+            <div id="resultadoContenido"></div>
+        </div>
+
+        <!-- CONSULTA 1 -->
+        <div id="validaUsuario" class="hidden formulario">
+            <!-- Formulario e interfaz para validar usuario -->
+            <h2>Validar Usuario</h2>
+            <form>
+                <label for="usuarioValidar">Usuario:</label>
+                <input type="text" id="usuarioValidar" name="usuarioValidar" required>
+                <br>
+                <label for="contrasenaValidar">Contraseña:</label>
+                <input type="password" id="contrasenaValidar" name="contrasenaValidar" required>
+                <br>
+                <button type="button" onclick="validaUsuario()">Validar Usuario</button>
+            </form>
+        </div>
+
+        <!-- CONSULTA 2 -->
+        <div id="datosUsuario" class="hidden formulario">
+            <!-- Formulario e interfaz para obtener datos del usuario -->
+            <h2>Datos del Usuario</h2>
+            <form>
+                <label for="nombreUsuario">Nombre de Usuario:</label>
+                <input type="text" id="nombreUsuario" name="nombreUsuario" required>
+                <br>
+                <label for="edadUsuario">Edad:</label>
+                <input type="number" id="edadUsuario" name="edadUsuario" required>
+                <br>
+                <button type="button" onclick="obtenerDatosUsuario()">Obtener Datos del Usuario</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 3-->
+        <div id="consultaCliente" class="hidden formulario">
+            <!-- Formulario e interfaz para la consulta de cliente -->
+            <h2>Consulta de Cliente</h2>
+            <form>
+                <label for="tipoBusqueda">Tipo de Búsqueda:</label>
+                <input type="text" id="tipoBusqueda" name="tipoBusqueda" required>
+
+                <br>
+
+                <label for="parametroBusqueda">Parámetro de Búsqueda:</label>
+                <input type="text" id="parametroBusqueda" name="parametroBusqueda" required>
+
+                <br>
+
+                <button type="button" onclick="consultaCliente()">Consultar Cliente</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 4-->
+        <div id="consultaFacturasCliente" class="hidden formulario">
+            <!-- Formulario e interfaz para la consulta de facturas del cliente -->
+            <h2>Consulta de Facturas del Cliente</h2>
+            <form>
+                <label for="cueIdFacturas">Cuenta de Cliente (cueId):</label>
+                <input type="text" id="cueIdFacturas" name="cueIdFacturas" required>
+                <br>
+                <button type="button" onclick="consultaFacturasCliente()">Consultar Facturas del Cliente</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 5-->
+        <div id="consultaFacturasClienteDataset" class="hidden formulario">
+            <!-- Formulario e interfaz para la consulta de facturas del cliente (Dataset) -->
+            <h2>Consulta de Facturas del Cliente (Dataset)</h2>
+            <form>
+                <label for="cueIdFacturasDataset">Cuenta de Cliente (cueId):</label>
+                <input type="text" id="cueIdFacturasDataset" name="cueIdFacturasDataset" required>
+                <br>
+                <button type="button" onclick="consultaFacturasClienteDataset()">Consultar Facturas del Cliente
+                    (Dataset)</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 6-->
+        <div id="consultaDetalleFacturasCliente" class="hidden formulario">
+            <!-- Formulario e interfaz para la consulta detallada de facturas del cliente -->
+            <h2>Consulta Detallada de Facturas del Cliente</h2>
+            <form>
+                <label for="cueIdDetalleFacturas">Cuenta de Cliente (cueId):</label>
+                <input type="text" id="cueIdDetalleFacturas" name="cueIdDetalleFacturas" required>
+                <br>
+                <button type="button" onclick="consultaDetalleFacturasCliente()">Consultar Detalle de Facturas del
+                    Cliente</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 7-->
+        <div id="procesoFacturacion" class="hidden formulario">
+            <!-- Formulario e interfaz para el proceso de facturación interna -->
+            <h2>Proceso de Facturación Interna</h2>
+            <form>
+                <label for="fechaProcesoFacturacion">Fecha de Proceso:</label>
+                <input type="date" id="fechaProcesoFacturacion" name="fechaProcesoFacturacion" required>
+                <br>
+                <button type="button" onclick="procesoFacturacion()">Iniciar Proceso de Facturación Interna</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 8-->
+        <div id="procesoFacturacionSeleccion" class="hidden formulario">
+            <!-- Formulario e interfaz para la selección del proceso de facturación -->
+            <h2>Selección de Proceso de Facturación</h2>
+            <form>
+                <label for="idProcesoFacturacion">ID del Proceso de Facturación:</label>
+                <input type="text" id="idProcesoFacturacion" name="idProcesoFacturacion" required>
+                <br>
+                <button type="button" onclick="procesoFacturacionSeleccion()">Seleccionar Proceso de
+                    Facturación</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 9-->
+        <div id="consultaFacturasProcesadas" class="hidden formulario">
+            <!-- Formulario e interfaz para la consulta de facturas procesadas -->
+            <h2>Consulta de Facturas Procesadas</h2>
+            <form>
+                <label for="fechaConsultaFacturasProcesadas">Fecha de Consulta:</label>
+                <input type="date" id="fechaConsultaFacturasProcesadas" name="fechaConsultaFacturasProcesadas" required>
+                <br>
+                <button type="button" onclick="consultaFacturasProcesadas()">Consultar Facturas Procesadas</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 10-->
+        <div id="consultaFacturaProcesada" class="hidden formulario">
+            <!-- Formulario e interfaz para la consulta de factura procesada -->
+            <h2>Consulta de Factura Procesada</h2>
+            <form>
+                <label for="idFacturaProcesada">ID de Factura Procesada:</label>
+                <input type="text" id="idFacturaProcesada" name="idFacturaProcesada" required>
+                <br>
+                <button type="button" onclick="consultaFacturaProcesada()">Consultar Factura Procesada</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 11-->
+        <div id="reversoTransacciones" class="hidden formulario">
+            <!-- Formulario e interfaz para el reverso de transacciones internas -->
+            <h2>Reverso de Transacciones Internas</h2>
+            <form>
+                <label for="idTransaccionReverso">ID de Transacción a Reversar:</label>
+                <input type="text" id="idTransaccionReverso" name="idTransaccionReverso" required>
+                <br>
+                <button type="button" onclick="reversoTransacciones()">Realizar Reverso de Transacciones
+                    Internas</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 12-->
+        <div id="reporteTransaccionesRV" class="hidden formulario">
+            <!-- Formulario e interfaz para el reporte de transacciones para RV -->
+            <h2>Reporte de Transacciones para RV</h2>
+            <form>
+                <label for="fechaReporteRV">Fecha del Reporte:</label>
+                <input type="date" id="fechaReporteRV" name="fechaReporteRV" required>
+                <br>
+                <button type="button" onclick="reporteTransaccionesRV()">Generar Reporte de Transacciones para
+                    RV</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 13-->
+        <div id="reimpresionComprobante" class="hidden formulario">
+            <!-- Formulario e interfaz para la reimpresión de comprobantes -->
+            <h2>Reimpresión del Comprobante</h2>
+            <form>
+                <label for="idComprobanteReimpresion">ID del Comprobante a Reimprimir:</label>
+                <input type="text" id="idComprobanteReimpresion" name="idComprobanteReimpresion" required>
+                <br>
+                <button type="button" onclick="reimpresionComprobante()">Reimprimir Comprobante</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 14-->
+        <div id="registrarFormaPago" class="hidden formulario">
+            <!-- Formulario e interfaz para registrar forma de pago -->
+            <h2>Registrar Forma de Pago</h2>
+            <form>
+                <label for="nombreFormaPago">Nombre de la Forma de Pago:</label>
+                <input type="text" id="nombreFormaPago" name="nombreFormaPago" required>
+                <br>
+                <button type="button" onclick="registrarFormaPago()">Registrar Forma de Pago</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 15-->
+        <div id="asignarOpcionMenu" class="hidden formulario">
+            <!-- Formulario e interfaz para asignar opciones de menú a usuarios de facturación -->
+            <h2>Asignar Opción de Menú a Usuario de Facturación</h2>
+            <form>
+                <label for="usuarioFacturacion">Usuario de Facturación:</label>
+                <input type="text" id="usuarioFacturacion" name="usuarioFacturacion" required>
+                <br>
+                <label for="opcionMenu">Opción de Menú:</label>
+                <input type="text" id="opcionMenu" name="opcionMenu" required>
+                <br>
+                <button type="button" onclick="asignarOpcionMenu()">Asignar Opción de Menú</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 16-->
+        <div id="obtenerFacturasCliente" class="hidden formulario">
+            <!-- Formulario e interfaz para obtener facturas del cliente por número de factura -->
+            <h2>Obtener Facturas del Cliente por Número de Factura</h2>
+            <form>
+                <label for="numeroFactura">Número de Factura:</label>
+                <input type="text" id="numeroFactura" name="numeroFactura" required>
+                <br>
+                <button type="button" onclick="obtenerFacturasCliente()">Obtener Facturas del Cliente por Número de
+                    Factura</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 17-->
+        <div id="insertarUsuarioAutorizado" class="hidden formulario">
+            <!-- Formulario e interfaz para insertar usuario autorizado -->
+            <h2>Insertar Usuario Autorizado</h2>
+            <form>
+                <label for="nombreUsuarioAutorizado">Nombre de Usuario Autorizado:</label>
+                <input type="text" id="nombreUsuarioAutorizado" name="nombreUsuarioAutorizado" required>
+                <br>
+                <button type="button" onclick="insertarUsuarioAutorizado()">Insertar Usuario Autorizado</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 18-->
+        <div id="obtenerUsuarioAutorizado" class="hidden formulario">
+            <!-- Formulario e interfaz para obtener usuario autorizado -->
+            <h2>Obtener Usuario Autorizado</h2>
+            <form>
+                <label for="nombreUsuarioObtenerAutorizado">Nombre de Usuario Autorizado:</label>
+                <input type="text" id="nombreUsuarioObtenerAutorizado" name="nombreUsuarioObtenerAutorizado" required>
+                <br>
+                <button type="button" onclick="obtenerUsuarioAutorizado()">Obtener Usuario Autorizado</button>
+            </form>
+        </div>
+
+        <!--CONSULTA 19-->
+        <div id="obtenerFacturasClienteAutorizadas" class="hidden formulario">
+            <!-- Formulario e interfaz para obtener facturas autorizadas del cliente -->
+            <h2>Obtener Facturas Autorizadas del Cliente</h2>
+            <form>
+                <label for="cueIdFacturasAutorizadas">Cuenta de Cliente (cueId):</label>
+                <input type="text" id="cueIdFacturasAutorizadas" name="cueIdFacturasAutorizadas" required>
+                <br>
+                <button type="button" onclick="obtenerFacturasClienteAutorizadas()">Obtener Facturas Autorizadas del
+                    Cliente</button>
+            </form>
+        </div>
+    </div>
+    <!--<script src="script.js"></script>-->
+    <script>
+
+        function mostrarFormulario(formularioId) {
+            document.querySelectorAll('.formulario').forEach(function (formulario) {
+                formulario.classList.add('hidden');
+            });
+            document.getElementById(formularioId).classList.remove('hidden');
+        }
+
+        function cerrarVentana() {
+            var ventana = document.getElementById('resultadoVentana');
+            ventana.style.display = 'none';
+        }
+
+        function mostrarResultadosConsulta(datos) {
+            var ventana = document.getElementById('resultadoVentana');
+            var contenido = document.getElementById('resultadoContenido');
+
+            var htmlResultado = "<h3>Resultados de la Consulta</h3>";
+            htmlResultado += "<p>CUE_ID (Suministro): " + datos.cueId + "</p>";
+            htmlResultado += "<p>Interés: " + datos.interes + "</p>";
+            htmlResultado += "<p>VALOR (Deuda): " + datos.valorDeuda + "</p>";
+            htmlResultado += "<p>Nro. de cartas por pagar: " + datos.numCartasPagar + "</p>";
+
+            contenido.innerHTML = htmlResultado;
+            ventana.style.display = 'block';
+        }
+
+        //CONSULTA 1
+        function validaUsuario() {
+            var usuario = document.getElementById('usuarioValidar').value;
+            var contrasena = document.getElementById('contrasenaValidar').value;
+            console.log('Usuario validado:', usuario);
+        }
+        //CONSULTA 2
+        function obtenerDatosUsuario() {
+            var nombreUsuario = document.getElementById('nombreUsuario').value;
+            console.log('Obteniendo datos del usuario:', nombreUsuario);
+        }
+        //CONSULTA 3
+        function consultaCliente() {
+            const tipoBusqueda = document.getElementById('tipoBusqueda').value;
+            const parametroBusqueda = document.getElementById('parametroBusqueda').value;
+            realizarConsultaCliente(tipoBusqueda, parametroBusqueda);
+        }
+
+        //CONSULTA 4
+        async function consultaFacturasCliente(cueId) {
+            //const corsAnywhereURL = 'https://cors-anywhere.herokuapp.com/';
+            const url = 'http://186.42.112.70:8094/principal.asmx';
+            //const url = 'http://localhost:3000/proxy';
+
+            // const url = corsAnywhereURL + serviceURL;
+
+            // const soapEnvelope = '<? xml version = "1.0" encoding = "utf-8" ?>\n'
+            //     + '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">\n'
+            //     + '<soapenv:Header />\n'
+            //     + '<soapenv:Body>\n'
+            //     + '<web:SP_WS_FACTURAS_CLIENTE>\n'
+            //     + <web:cueId>${cueId}</web:cueId>\n
+            //     + '</web:SP_WS_FACTURAS_CLIENTE>\n'
+            //     + '</soapenv:Body>\n'
+            //     + '</soapenv:Envelope>';
+
+            const soapEnvelope = '<?xml version="1.0" encoding="utf-8"?>\n'
+                + '<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">\n'
+                + '<soap12:Body>\n'
+                + '<SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">\n'
+                + '<LN_CUE_ID>' + cueId + '</LN_CUE_ID>\n'
+                + '</SP_WS_FACTURAS_CLIENTE>\n'
+                + '</soap12:Body>\n'
+                + '</soap12:Envelope>\n'
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    mode: "cors",
+                    headers: {
+                        'Content-Type': 'application/soap+xml; charset=utf-8',
+                        // 'SOAPAction': 'http://tempuri.org/SP_WS_FACTURAS_CLIENTE',
+                        // "Content-Length": "length"
+
+                    },
+                    body: soapEnvelope
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const text = await response.text();
+                console.log(text);
+                // Procesar la respuesta aquí
+            } catch (error) {
+                console.error('Error en la consulta de facturas del cliente:', error);
+            }
+        }
+        //function llamarConsultaFacturasCliente() {
+        // Puedes obtener el cueId de alguna manera, ya sea de un formulario o de otro elemento en tu HTML
+        //  const cueId = obtenerCueIdDeAlgunaManera();
+        //consultaFacturasCliente(cueId);
+        //}
+
+        //CONSULTA 5
+        function consultaFacturasClienteDataset() {
+            const cueId = document.getElementById('cueIdDataset').value;
+            realizarConsultaFacturasClienteDataset(cueId);
+        }
+
+        //CONSULTA 6
+        function consultaDetalleFacturasCliente() {
+            const cueId = document.getElementById('cueIdDetalle').value;
+            realizarConsultaDetalleFacturas(cueId);
+        }
+
+        //CONSULTA 7
+        function realizarProcesoFacturacion() {
+            const cueId = document.getElementById('cueId').value;
+            const recaudador = document.getElementById('recaudador').value;
+            const formaPago = document.getElementById('formaPago').value;
+            const banco = document.getElementById('banco').value;
+            const cuenta = document.getElementById('cuenta').value;
+            const numeroCheque = document.getElementById('numeroCheque').value;
+            const beneficiario = document.getElementById('beneficiario').value;
+            const observacion = document.getElementById('observacion').value;
+            procesoFacturacion(cueId, recaudador, formaPago, banco, cuenta, numeroCheque, beneficiario, observacion);
+        }
+
+        //CONSULTA 8
+        function procesoFacturacionSeleccion() {
+            const cueId = document.getElementById('cueIdSeleccion').value;
+            const recaudador = document.getElementById('recaudadorSeleccion').value;
+            const numFacturas = document.getElementById('numFacturas').value;
+            const parametro = document.getElementById('parametro').value;
+            realizarProcesoFacturacionSeleccion(cueId, recaudador, numFacturas, parametro);
+        }
+
+        //CONSULTA 9
+        function realizarConsultaFacturasProcesadas() {
+            const freId = document.getElementById('freId').value;
+            consultaFacturasProcesadas(freId);
+        }
+
+        //CONSULTA 10
+        function realizarConsultaFacturaProcesada() {
+            const fsrId = document.getElementById('fsrId').value;
+            consultaFacturaProcesada(fsrId);
+        }
+
+        //CONSULTA 11
+        function realizarReversoTransacciones() {
+            // Obtener los valores de los campos de entrada
+            const freId = document.getElementById('freId').value;
+            const recaudador = document.getElementById('recaudador').value;
+
+            // Llamar a la función de reversoTransacciones con los valores proporcionados
+            reversoTransacciones(freId, recaudador);
+        }
+
+        //CONSULTA 12
+        function reversoTransacciones() {
+            const freId = document.getElementById('freId').value;
+            const recaudador = document.getElementById('recaudador').value;
+            realizarReversoTransacciones(freId, recaudador);
+        }
+
+        //CONSULTA 13
+        function reporteTransaccionesRV() {
+            const recaudador = document.getElementById('recaudadorRV').value;
+            const fechaDesde = document.getElementById('fechaDesdeRV').value;
+            const fechaHasta = document.getElementById('fechaHastaRV').value;
+            const filtro = document.getElementById('filtroRV').value;
+            generarReporteTransacciones(recaudador, fechaDesde, fechaHasta, filtro);
+        }
+
+        //CONSULTA 14
+        function realizarRegistroFormaPago() {
+            const liTipoFPago = document.getElementById('liTipoFPago').value;
+            registrarFormaPago(liTipoFPago);
+        }
+
+        //CONSULTA 15
+        function realizarAsignacionOpcionMenu() {
+            // Obtener los valores de los campos de entrada
+            const lsUsrUser = document.getElementById('lsUsrUser').value;
+
+            // Llamar a la función asignarOpcionMenu con los valores proporcionados
+            asignarOpcionMenu(lsUsrUser);
+        }
+
+        //CONSULTA 16
+        function realizarObtencionFacturasCliente() {
+            const lnCueId = document.getElementById('lnCueId').value;
+            const lsFacRecaudador = document.getElementById('lsFacRecaudador').value;
+            const lnFsrId = document.getElementById('lnFsrId').value;
+            obtenerFacturasCliente(lnCueId, lsFacRecaudador, lnFsrId);
+        }
+
+        //CONSULTA 17
+        function realizarAsignacion() {
+            const lsUsrAutoriza = document.getElementById('lsUsrAutoriza').value;
+            const lsUsrAutorizado = document.getElementById('lsUsrAutorizado').value;
+            const lfCueId = document.getElementById('lfCueId').value;
+            const lsFsrId = document.getElementById('lsFsrId').value;
+            const lfTotal = document.getElementById('lfTotal').value;
+            const liFiltro = document.getElementById('liFiltro').value;
+            asignarOpcionMenu(lsUsrAutoriza, lsUsrAutorizado, lfCueId, lsFsrId, lfTotal, liFiltro);
+        }
+
+        //CONSULTA 18
+        function realizarObtencionUsuarioAutorizado() {
+            obtenerUsuarioAutorizado();
+        }
+
+        //CONSULTA 19
+        function realizarObtencionFacturasAutorizadas() {
+            const glsFacRecaudador = document.getElementById('glsFacRecaudador').value;
+            const glnCueId = document.getElementById('glnCueId').value;
+            obtenerFacturasClienteAutorizadas(glsFacRecaudador, glnCueId);
+        }
+    </script>
+</body>
+
+</html>
