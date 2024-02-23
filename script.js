@@ -116,151 +116,120 @@ async function consultaCliente(tipoBusqueda, parametroBusqueda) {
 
 //CONSULTA N°4
 async function consultaFacturasCliente(cueId) {
-  //const corsAnywhereURL = 'https://cors-anywhere.herokuapp.com/';
+  console.log("Esto es la función consultaFacturasCliente");
   const serviceURL = "http://186.42.112.70:8094/principal.asmx";
 
-  //const url = corsAnywhereURL + serviceURL;
-
   const soapEnvelope = `
-      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
-        <soapenv:Header/>
-        <soapenv:Body>
-          <web:SP_WS_FACTURAS_CLIENTE>
-            <web:cueId>${cueId}</web:cueId>
-          </web:SP_WS_FACTURAS_CLIENTE>
-        </soapenv:Body>
-      </soapenv:Envelope>
-    `;
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
+      <soapenv:Header/>
+      <soapenv:Body>
+        <web:SP_WS_FACTURAS_CLIENTE>
+          <web:cueId>${cueId}</web:cueId>
+        </web:SP_WS_FACTURAS_CLIENTE>
+      </soapenv:Body>
+    </soapenv:Envelope>
+  `;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(serviceURL, {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/soap+xml; charset=utf-8",
-        SOAPAction: "http://tempuri.org/SP_WS_FACTURAS_CLIENTE",
+        "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE",
       },
       body: soapEnvelope,
     });
 
+    console.log("Esto es un response:", response);
     if (!response.ok) {
+      console.log("Esto es un error");
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
+    console.log("Esto es esta bien");
     const text = await response.text();
-    console.log(text);
-    // Procesar la respuesta aquí
+    console.log("Esto es una respuesta:", text);
+
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(text, "text/xml");
+
+    const tables = xmlDoc.getElementsByTagName("Table");
+
+    if (tables.length > 0) {
+      for (let i = 0; i < tables.length; i++) {
+        const table = tables[i];
+        const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
+        const fsrNumeroCompleto = table.getElementsByTagName("FSR_NUMERO_COMPLETO")[0].textContent;
+        console.log(`FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}`);
+        // Agregar lógica para mostrar otros datos si es necesario
+      }
+    } else {
+      console.log("No se encontraron datos en la tabla.");
+    }
+
   } catch (error) {
     console.error("Error en la consulta de facturas del cliente:", error);
   }
 }
 
+
+
 //CONSULTA N°5
 async function consultaFacturasClienteDataset(cueId) {
-  const url =
-    "http://186.42.112.70:8094/principal.asmx/SP_WS_FACTURAS_CLIENTE_DATSET";
+  console.log("Esto es la función consultaFacturasClienteDataset");
+  const serviceURL = "http://186.42.112.70:8094/principal.asmx";
 
   const soapEnvelope = `
-      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
-        <soapenv:Header/>
-        <soapenv:Body>
-          <web:SP_WS_FACTURAS_CLIENTE_DATSET>
-            <web:cueId>${cueId}</web:cueId>
-          </web:SP_WS_FACTURAS_CLIENTE_DATSET>
-        </soapenv:Body>
-      </soapenv:Envelope>
-    `;
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
+      <soapenv:Header/>
+      <soapenv:Body>
+        <web:SP_WS_FACTURAS_CLIENTE_DATSET>
+          <web:LN_CUE_ID>${cueId}</web:LN_CUE_ID>
+        </web:SP_WS_FACTURAS_CLIENTE_DATSET>
+      </soapenv:Body>
+    </soapenv:Envelope>
+  `;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(serviceURL, {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/soap+xml; charset=utf-8",
+        "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE_DATSET",
       },
       body: soapEnvelope,
     });
-    console.log("esto es un response");
 
-    console.log(response);
-    console.log("**************");
-
+    console.log("Esto es un response:", response);
     if (!response.ok) {
-      console.log("esto es un error");
-      console.log(response);
+      console.log("Esto es un error");
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
+    console.log("Esto está bien");
     const text = await response.text();
+    console.log("Esto es una respuesta:", text);
 
-    console.log(text);
-    // Procesar la respuesta aquí
-  } catch (error) {
-    console.error(
-      "Error en la consulta de facturas del cliente (Dataset):",
-      error
-    );
-  }
-}
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(text, "text/xml");
 
-//CONSULTA N°6
-async function realizarConsultaDetalleFacturas(cueId) {
-    console.log("Esto es la función realizarConsultaDetalleFacturas");
-    const url = "http://127.0.0.1:3000/api/principal.asmx";
+    const dataSetNode = xmlDoc.getElementsByTagName("DataSet")[0];
 
-    const soapEnvelope = `
-    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-    <soap:Body>
-      <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
-        <LN_CUE_ID>${cueId}</LN_CUE_ID>
-      </SP_WS_FACTURAS_CLIENTE>
-    </soap:Body>
-  </soap:Envelope>
-  
-    `;
-
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/xml;charset=utf-8",
-          "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE"
-        },
-        body: soapEnvelope,
-      });
-
-      console.log("Esto es un response:", response);
-      if (!response.ok) {
-        console.log("Esto es un error");
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      console.log("Esto es esta bien");
-      const text = await response.text();
-      console.log("Esto es una respuesta:", text);
-
-
-const parser = new DOMParser();
-const xmlDoc = parser.parseFromString(text, "text/xml");
-
-const tables = xmlDoc.getElementsByTagName("Table");
-
-if (tables.length > 0) {
-    for (let i = 0; i < tables.length; i++) {
+    if (dataSetNode) {
+      const tables = dataSetNode.getElementsByTagName("Table");
+      for (let i = 0; i < tables.length; i++) {
         const table = tables[i];
-        const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
-        const fsrNumeroCompleto = table.getElementsByTagName("FSR_NUMERO_COMPLETO")[0].textContent;
-        console.log(`FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}`);
-        //colocar los demas uwu
+        const lnCueId = table.getElementsByTagName("LN_CUE_ID")[0].textContent;
+        // Accede a otros campos según sea necesario
+        console.log(`LN_CUE_ID: ${lnCueId}`);
+      }
+    } else {
+      console.log("No se encontraron datos en el conjunto de datos.");
     }
-} else {
-    console.log("No se encontraron datos en la tabla.");
-}
 
-
-    } catch (error) {
-      console.error("Error en la consulta del detalle de facturas del cliente:", error);
-    }
+  } catch (error) {
+    console.error("Error en la consulta del dataset de facturas del cliente:", error);
+  }
 }
 
 

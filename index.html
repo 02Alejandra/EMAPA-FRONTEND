@@ -139,7 +139,8 @@
                 <label for="cueIdDetalleFacturas">Cuenta de Cliente (cueId):</label>
                 <input type="text" id="cueIdDetalleFacturas" name="cueIdDetalleFacturas" required>
                 <br>
-                <button type="button" onclick="consultaDetalleFacturasCliente()">Consultar Detalle de Facturas del Cliente</button>
+                <button type="button" onclick="consultaDetalleFacturasCliente()">Consultar Detalle de Facturas del
+                    Cliente</button>
             </form>
         </div>
 
@@ -418,6 +419,7 @@
         //CONSULTA 5
         function consultaFacturasClienteDataset() {
             const cueId = document.getElementById('cueIdDataset').value;
+            console.log('Consultando facturas del cliente con dataset:', cueId);
             realizarConsultaFacturasClienteDataset(cueId);
         }
 
