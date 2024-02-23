@@ -7,6 +7,8 @@
     <title>Menú de Consultas</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 
+
+
 </head>
 
 <body>
@@ -137,10 +139,10 @@
                 <label for="cueIdDetalleFacturas">Cuenta de Cliente (cueId):</label>
                 <input type="text" id="cueIdDetalleFacturas" name="cueIdDetalleFacturas" required>
                 <br>
-                <button type="button" onclick="consultaDetalleFacturasCliente()">Consultar Detalle de Facturas del
-                    Cliente</button>
+                <button type="button" onclick="consultaDetalleFacturasCliente()">Consultar Detalle de Facturas del Cliente</button>
             </form>
         </div>
+
 
         <!--CONSULTA 7-->
         <div id="procesoFacturacion" class="hidden formulario">
@@ -306,7 +308,10 @@
             </form>
         </div>
     </div>
-    <!--<script src="script.js"></script>-->
+
+    <script src="./script.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <script>
 
         function mostrarFormulario(formularioId) {
@@ -418,9 +423,12 @@
 
         //CONSULTA 6
         function consultaDetalleFacturasCliente() {
-            const cueId = document.getElementById('cueIdDetalle').value;
+            // Correcting the element ID to match the HTML
+            const cueId = document.getElementById('cueIdDetalleFacturas').value;
+            console.log('Consultando detalle de facturas del cliente:', cueId);
             realizarConsultaDetalleFacturas(cueId);
         }
+
 
         //CONSULTA 7
         function realizarProcesoFacturacion() {
@@ -528,6 +536,7 @@
             obtenerFacturasClienteAutorizadas(glsFacRecaudador, glnCueId);
         }
     </script>
+
 </body>
 
 </html>

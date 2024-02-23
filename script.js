@@ -1,11 +1,11 @@
-document.addEventListener("DOMContentLoaded", function () {
-  //CONSULTA N°1
-  async function validaUsuario() {
-    const usuario = 'Mutualista'; // Usa el usuario proporcionado
-    const password = 'mutualista2022'; // Usa la contraseña proporcionada
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_USUARIO_VALIDA_CLAVE';
+//CONSULTA N°1
+async function validaUsuario() {
+  const usuario = "Mutualista"; // Usa el usuario proporcionado
+  const password = "mutualista2022"; // Usa la contraseña proporcionada
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_USUARIO_VALIDA_CLAVE";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -17,34 +17,33 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      // mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      // Aquí deberás procesar la respuesta del servicio web.
-      console.log(text);
-    } catch (error) {
-      console.error('Error al validar el usuario:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    // Aquí deberás procesar la respuesta del servicio web.
+    console.log(text);
+  } catch (error) {
+    console.error("Error al validar el usuario:", error);
   }
+}
 
+//CONSULTA N°2
+async function datosUsuario(nombreUsuario) {
+  const url = "http://186.42.112.70:8094/principal.asmx/SP_WS_DATOS_USUARIO";
 
-  //CONSULTA N°2
-  async function datosUsuario(nombreUsuario) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_DATOS_USUARIO';
-
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -55,33 +54,33 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error al obtener datos del usuario:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error al obtener datos del usuario:", error);
   }
+}
 
-  //CONSULTA N°3
-  async function consultaCliente(tipoBusqueda, parametroBusqueda) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_CONSULTA_CLIENTE';
+//CONSULTA N°3
+async function consultaCliente(tipoBusqueda, parametroBusqueda) {
+  const url = "http://186.42.112.70:8094/principal.asmx/SP_WS_CONSULTA_CLIENTE";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -93,36 +92,36 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en la consulta del cliente:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error en la consulta del cliente:", error);
   }
+}
 
-  //CONSULTA N°4
-  async function consultaFacturasCliente(cueId) {
-    //const corsAnywhereURL = 'https://cors-anywhere.herokuapp.com/';
-    const serviceURL = 'http://186.42.112.70:8094/principal.asmx';
+//CONSULTA N°4
+async function consultaFacturasCliente(cueId) {
+  //const corsAnywhereURL = 'https://cors-anywhere.herokuapp.com/';
+  const serviceURL = "http://186.42.112.70:8094/principal.asmx";
 
-    //const url = corsAnywhereURL + serviceURL;
+  //const url = corsAnywhereURL + serviceURL;
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -133,36 +132,35 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8',
-          'SOAPAction': 'http://tempuri.org/SP_WS_FACTURAS_CLIENTE'
-          
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+        SOAPAction: "http://tempuri.org/SP_WS_FACTURAS_CLIENTE",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en la consulta de facturas del cliente:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error en la consulta de facturas del cliente:", error);
   }
+}
 
+//CONSULTA N°5
+async function consultaFacturasClienteDataset(cueId) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_FACTURAS_CLIENTE_DATSET";
 
-  //CONSULTA N°5
-  async function consultaFacturasClienteDataset(cueId) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_FACTURAS_CLIENTE_DATSET';
-
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -173,70 +171,116 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
+    console.log("esto es un response");
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+    console.log(response);
+    console.log("**************");
 
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en la consulta de facturas del cliente (Dataset):', error);
+    if (!response.ok) {
+      console.log("esto es un error");
+      console.log(response);
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  }
 
-  //CONSULTA N°6
-  async function consultaDetalleFacturasCliente(cueId) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_FACTURAS_CLIENTE_DET';
+    const text = await response.text();
+
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error(
+      "Error en la consulta de facturas del cliente (Dataset):",
+      error
+    );
+  }
+}
+
+//CONSULTA N°6
+async function realizarConsultaDetalleFacturas(cueId) {
+    console.log("Esto es la función realizarConsultaDetalleFacturas");
+    const url = "http://127.0.0.1:3000/api/principal.asmx";
 
     const soapEnvelope = `
-      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
-        <soapenv:Header/>
-        <soapenv:Body>
-          <web:SP_WS_FACTURAS_CLIENTE_DET>
-            <web:cueId>${cueId}</web:cueId>
-          </web:SP_WS_FACTURAS_CLIENTE_DET>
-        </soapenv:Body>
-      </soapenv:Envelope>
+    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+      <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
+        <LN_CUE_ID>${cueId}</LN_CUE_ID>
+      </SP_WS_FACTURAS_CLIENTE>
+    </soap:Body>
+  </soap:Envelope>
+  
     `;
 
     try {
       const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
+          "Content-Type": "text/xml;charset=utf-8",
+          "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE"
         },
-        body: soapEnvelope
+        body: soapEnvelope,
       });
 
+      console.log("Esto es un response:", response);
       if (!response.ok) {
+        console.log("Esto es un error");
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
+      console.log("Esto es esta bien");
       const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en la consulta del detalle de facturas del cliente:', error);
+      console.log("Esto es una respuesta:", text);
+
+
+const parser = new DOMParser();
+const xmlDoc = parser.parseFromString(text, "text/xml");
+
+const tables = xmlDoc.getElementsByTagName("Table");
+
+if (tables.length > 0) {
+    for (let i = 0; i < tables.length; i++) {
+        const table = tables[i];
+        const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
+        const fsrNumeroCompleto = table.getElementsByTagName("FSR_NUMERO_COMPLETO")[0].textContent;
+        console.log(`FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}`);
+        //colocar los demas uwu
     }
-  }
+} else {
+    console.log("No se encontraron datos en la tabla.");
+}
 
-  //CONSULTA N°7
-  async function procesoFacturacion(cueId, recaudador, formaPago, banco, cuenta, numeroCheque, beneficiario, observacion) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_PROCESO_FACTURACION_INT';
 
-    const soapEnvelope = `
+    } catch (error) {
+      console.error("Error en la consulta del detalle de facturas del cliente:", error);
+    }
+}
+
+
+
+
+//CONSULTA N°7
+async function procesoFacturacion(
+  cueId,
+  recaudador,
+  formaPago,
+  banco,
+  cuenta,
+  numeroCheque,
+  beneficiario,
+  observacion
+) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_PROCESO_FACTURACION_INT";
+
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -254,33 +298,40 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en el proceso de facturación:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error en el proceso de facturación:", error);
   }
+}
 
-  //CONSULTA N°8
-  async function procesoFacturacionSeleccion(cueId, recaudador, numFacturas, parametro, ...otrosParametros) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_PROCESO_FACTURACION_SELECCION';
+//CONSULTA N°8
+async function procesoFacturacionSeleccion(
+  cueId,
+  recaudador,
+  numFacturas,
+  parametro,
+  ...otrosParametros
+) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_PROCESO_FACTURACION_SELECCION";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -295,33 +346,34 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en el proceso de facturación de selección:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error en el proceso de facturación de selección:", error);
   }
+}
 
-  //CONSULTA N°9
-  async function consultaFacturasProcesadas(freId) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_CONSULTA_FACTURAS_PROCESADAS';
+//CONSULTA N°9
+async function consultaFacturasProcesadas(freId) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_CONSULTA_FACTURAS_PROCESADAS";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -332,33 +384,34 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en la consulta de facturas procesadas:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error en la consulta de facturas procesadas:", error);
   }
+}
 
-  //CONSULTA N°10
-  async function consultaFacturaProcesada(fsrId) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_CONSULTA_FACTURA_PROCESADA';
+//CONSULTA N°10
+async function consultaFacturaProcesada(fsrId) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_CONSULTA_FACTURA_PROCESADA";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -369,33 +422,34 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en la consulta de factura procesada:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error en la consulta de factura procesada:", error);
   }
+}
 
-  //CONSULTA N°11
-  async function reversoTransacciones(freId, recaudador) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_REVERSO_TRANSACCIONES_INT';
+//CONSULTA N°11
+async function reversoTransacciones(freId, recaudador) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_REVERSO_TRANSACCIONES_INT";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -407,33 +461,39 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en el reverso de transacciones:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error en el reverso de transacciones:", error);
   }
+}
 
-  //CONSULTA N°12
-  async function reporteTransaccionesRV(recaudador, fechaDesde, fechaHasta, filtro) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_REPORTE_TRANSACCIONES_RV';
+//CONSULTA N°12
+async function reporteTransaccionesRV(
+  recaudador,
+  fechaDesde,
+  fechaHasta,
+  filtro
+) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_REPORTE_TRANSACCIONES_RV";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -447,33 +507,34 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en el reporte de transacciones:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error en el reporte de transacciones:", error);
   }
+}
 
-  //CONSULTA N°13
-  async function reimpresionComprobante(lnFreId, liFiltro) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_REIMPRESION_COMPROBANTE';
+//CONSULTA N°13
+async function reimpresionComprobante(lnFreId, liFiltro) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_REIMPRESION_COMPROBANTE";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -485,33 +546,33 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en la reimpresión de comprobante:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error en la reimpresión de comprobante:", error);
   }
+}
 
-  //CONSULTA N°14
-  async function registrarFormaPago(liTipoFPago) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/NOMBRE_DEL_METODO';
+//CONSULTA N°14
+async function registrarFormaPago(liTipoFPago) {
+  const url = "http://186.42.112.70:8094/principal.asmx/NOMBRE_DEL_METODO";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -522,33 +583,34 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error en el registro de forma de pago:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error en el registro de forma de pago:", error);
   }
+}
 
-  //CONSULTA N°15
-  async function asignarOpcionMenu(lsUsrUser) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_USUARIO_FACTURACION';
+//CONSULTA N°15
+async function asignarOpcionMenu(lsUsrUser) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_USUARIO_FACTURACION";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -559,33 +621,34 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error al asignar opción de menú:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error al asignar opción de menú:", error);
   }
+}
 
-  //CONSULTA N°16
-  async function obtenerFacturasCliente(lnCueId, lsFacRecaudador, lnFsrId) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_FACTURAS_CLIENTE_FAC_NUM';
+//CONSULTA N°16
+async function obtenerFacturasCliente(lnCueId, lsFacRecaudador, lnFsrId) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_FACTURAS_CLIENTE_FAC_NUM";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -598,33 +661,41 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error al obtener facturas del cliente:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error al obtener facturas del cliente:", error);
   }
+}
 
-  //CONSULTA N°17
-  async function asignarOpcionMenu(lsUsrAutoriza, lsUsrAutorizado, lfCueId, lsFsrId, lfTotal, liFiltro) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_ASIGNAR_OPCION_MENU';
+//CONSULTA N°17
+async function asignarOpcionMenu(
+  lsUsrAutoriza,
+  lsUsrAutorizado,
+  lfCueId,
+  lsFsrId,
+  lfTotal,
+  liFiltro
+) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_ASIGNAR_OPCION_MENU";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -640,33 +711,34 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error al asignar opción de menú:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error al asignar opción de menú:", error);
   }
+}
 
-  //CONSULTA N°18
-  async function obtenerUsuarioAutorizado() {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_USUARIO_AUTORIZADO';
+//CONSULTA N°18
+async function obtenerUsuarioAutorizado() {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_USUARIO_AUTORIZADO";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -675,33 +747,34 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error al obtener información de usuario autorizado:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error al obtener información de usuario autorizado:", error);
   }
+}
 
-  //CONSULTA N°19
-  async function obtenerFacturasClienteAutorizadas(glsFacRecaudador, glnCueId) {
-    const url = 'http://186.42.112.70:8094/principal.asmx/SP_WS_FACTURAS_CLIENTE_AUTORIZADAS';
+//CONSULTA N°19
+async function obtenerFacturasClienteAutorizadas(glsFacRecaudador, glnCueId) {
+  const url =
+    "http://186.42.112.70:8094/principal.asmx/SP_WS_FACTURAS_CLIENTE_AUTORIZADAS";
 
-    const soapEnvelope = `
+  const soapEnvelope = `
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">
         <soapenv:Header/>
         <soapenv:Body>
@@ -713,27 +786,31 @@ document.addEventListener("DOMContentLoaded", function () {
       </soapenv:Envelope>
     `;
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/soap+xml; charset=utf-8'
-        },
-        body: soapEnvelope
-      });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/soap+xml; charset=utf-8",
+      },
+      body: soapEnvelope,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const text = await response.text();
-      console.log(text);
-      // Procesar la respuesta aquí
-    } catch (error) {
-      console.error('Error al obtener facturas autorizadas del cliente:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const text = await response.text();
+    console.log(text);
+    // Procesar la respuesta aquí
+  } catch (error) {
+    console.error("Error al obtener facturas autorizadas del cliente:", error);
   }
-});
+}
 
+// document.addEventListener("DOMContentLoaded", function () {
+//   window.realizarConsultaDetalleFacturas = async function (cueId) {
 
+ 
+//   };
+// });
