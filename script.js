@@ -232,6 +232,66 @@ async function consultaFacturasClienteDataset(cueId) {
   }
 }
 
+//CONSULTA 6
+async function realizarConsultaDetalleFacturas(cueId) {
+  console.log("Esto es la función realizarConsultaDetalleFacturas");
+  const url = "http://127.0.0.1:3000/api/principal.asmx";
+
+  const soapEnvelope = `
+  <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
+      <LN_CUE_ID>${cueId}</LN_CUE_ID>
+    </SP_WS_FACTURAS_CLIENTE>
+  </soap:Body>
+</soap:Envelope>
+
+  `;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/xml;charset=utf-8",
+        "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE"
+      },
+      body: soapEnvelope,
+    });
+
+    console.log("Esto es un response:", response);
+    if (!response.ok) {
+      console.log("Esto es un error");
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    console.log("Esto es esta bien");
+    const text = await response.text();
+    console.log("Esto es una respuesta:", text);
+
+
+const parser = new DOMParser();
+const xmlDoc = parser.parseFromString(text, "text/xml");
+
+const tables = xmlDoc.getElementsByTagName("Table");
+
+if (tables.length > 0) {
+  for (let i = 0; i < tables.length; i++) {
+      const table = tables[i];
+      const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
+      const fsrNumeroCompleto = table.getElementsByTagName("FSR_NUMERO_COMPLETO")[0].textContent;
+      console.log(`FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}`);
+      //colocar los demas uwu
+  }
+} else {
+  console.log("No se encontraron datos en la tabla.");
+}
+
+
+  } catch (error) {
+    console.error("Error en la consulta del detalle de facturas del cliente:", error);
+  }
+}
+
 
 
 

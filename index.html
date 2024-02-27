@@ -15,22 +15,22 @@
     <div class="wrapper">
         <nav>
             <ul>
-                <li><a href="#" onclick="mostrarFormulario('validaUsuario')">Validar Usuario-</a></li>
+                <li><a href="#" onclick="mostrarFormulario('validaUsuario')">VALIDAR USUARIO</a></li>
                 <li><a href="#" onclick="mostrarFormulario('datosUsuario')">Datos del Usuario</a></li>
                 <li><a href="#" onclick="mostrarFormulario('consultaCliente')">Consulta del Cliente</a></li>
-                <li><a href="#" onclick="mostrarFormulario('consultaFacturasCliente')">Facturas del Cliente-</a></li>
-                <li><a href="#" onclick="mostrarFormulario('consultaFacturasClienteDataset')">Facturas del Cliente
-                        Dataset-</a></li>
-                <li><a href="#" onclick="mostrarFormulario('consultaDetalleFacturasCliente')">Facturas del Cliente
-                        Det-</a>
+                <li><a href="#" onclick="mostrarFormulario('consultaFacturasCliente')">FACTURAS DEL CLIENTE</a></li>
+                <li><a href="#" onclick="mostrarFormulario('consultaFacturasClienteDataset')">FACTURAS DEL CLIENTE -
+                        DATASET</a></li>
+                <li><a href="#" onclick="mostrarFormulario('consultaDetalleFacturasCliente')">FACTURAS DEL CLIENTE
+                        DETALLE</a>
                 </li>
                 <li><a href="#" onclick="mostrarFormulario('procesoFacturacion')">Proceso de Facturación Int-</a></li>
                 <li><a href="#" onclick="mostrarFormulario('procesoFacturacionSeleccion')">Proceso de Facturación
                         Selección</a></li>
                 <li><a href="#" onclick="mostrarFormulario('consultaFacturasProcesadas')">Consulta de Facturas
-                        Procesadas-</a></li>
-                <li><a href="#" onclick="mostrarFormulario('consultaFacturaProcesada')">Consulta de Factura
-                        Procesada</a>
+                        Procesadas</a></li>
+                <li><a href="#" onclick="mostrarFormulario('consultaFacturaProcesada')">CONSULTA DE FACTURA
+                        PROCESADA</a>
                 </li>
                 <li><a href="#" onclick="mostrarFormulario('reversoTransacciones')">Reverso de Transacciones Int</a>
                 </li>
@@ -38,16 +38,17 @@
                 </li>
                 <li><a href="#" onclick="mostrarFormulario('reimpresionComprobante')">Reimpresión del Comprobante</a>
                 </li>
-                <li><a href="#" onclick="mostrarFormulario('registrarFormaPago')">Forma de Pago-</a></li>
-                <li><a href="#" onclick="mostrarFormulario('asignarOpcionMenu')">Usuario de Facturación-</a></li>
+                <li><a href="#" onclick="mostrarFormulario('registrarFormaPago')">FORMA DE PAGO</a></li>
+                <li><a href="#" onclick="mostrarFormulario('consultaUsuarioFacturacion')">USUARIO DE FACTURACIÓN-</a>
+                </li>
                 <li><a href="#" onclick="mostrarFormulario('obtenerFacturasCliente')">Facturas del Cliente Fac_Num</a>
                 </li>
                 <li><a href="#" onclick="mostrarFormulario('insertarUsuarioAutorizado')">Insertar el Usuario
                         Autorizado</a>
                 </li>
-                <li><a href="#" onclick="mostrarFormulario('obtenerUsuarioAutorizado')">Usuario Autorizado-</a></li>
-                <li><a href="#" onclick="mostrarFormulario('obtenerFacturasClienteAutorizadas')">Facturas del Cliente
-                        Autorizadas-</a></li>
+                <li><a href="#" onclick="mostrarFormulario('obtenerUsuarioAutorizado')">USUARIO AUTORIZADO</a></li>
+                <li><a href="#" onclick="mostrarFormulario('consultaFacturasAutorizadas')">FACTURAS DEL CLIENTE
+                        AUTORIZADAS</a></li>
             </ul>
         </nav>
 
@@ -176,7 +177,7 @@
             <h2>Consulta de Facturas Procesadas</h2>
             <form>
                 <label for="fechaConsultaFacturasProcesadas">Fecha de Consulta:</label>
-                <input type="date" id="fechaConsultaFacturasProcesadas" name="fechaConsultaFacturasProcesadas" required>
+                <input type="text" id="fechaConsultaFacturasProcesadas" name="fechaConsultaFacturasProcesadas" required>
                 <br>
                 <button type="button" onclick="consultaFacturasProcesadas()">Consultar Facturas Procesadas</button>
             </form>
@@ -238,26 +239,24 @@
             <h2>Registrar Forma de Pago</h2>
             <form>
                 <label for="nombreFormaPago">Nombre de la Forma de Pago:</label>
-                <input type="text" id="nombreFormaPago" name="nombreFormaPago" required>
+                <input type="text" id="tipoFormaPago" name="tipoFormaPago" required>
                 <br>
                 <button type="button" onclick="registrarFormaPago()">Registrar Forma de Pago</button>
             </form>
         </div>
 
         <!--CONSULTA 15-->
-        <div id="asignarOpcionMenu" class="hidden formulario">
-            <!-- Formulario e interfaz para asignar opciones de menú a usuarios de facturación -->
-            <h2>Asignar Opción de Menú a Usuario de Facturación</h2>
+        <!-- Agrega este formulario en tu HTML -->
+        <div id="consultaUsuarioFacturacion" class="hidden formulario">
+            <h2>Consulta de Usuario de Facturación</h2>
             <form>
-                <label for="usuarioFacturacion">Usuario de Facturación:</label>
+                <label for="usuarioFacturacion">Nombre de Usuario:</label>
                 <input type="text" id="usuarioFacturacion" name="usuarioFacturacion" required>
                 <br>
-                <label for="opcionMenu">Opción de Menú:</label>
-                <input type="text" id="opcionMenu" name="opcionMenu" required>
-                <br>
-                <button type="button" onclick="asignarOpcionMenu()">Asignar Opción de Menú</button>
+                <button type="button" onclick="consultarUsuarioFacturacion()">Consultar Usuario de Facturación</button>
             </form>
         </div>
+
 
         <!--CONSULTA 16-->
         <div id="obtenerFacturasCliente" class="hidden formulario">
@@ -289,255 +288,671 @@
             <!-- Formulario e interfaz para obtener usuario autorizado -->
             <h2>Obtener Usuario Autorizado</h2>
             <form>
-                <label for="nombreUsuarioObtenerAutorizado">Nombre de Usuario Autorizado:</label>
-                <input type="text" id="nombreUsuarioObtenerAutorizado" name="nombreUsuarioObtenerAutorizado" required>
-                <br>
+                <!-- No hay parámetros en este caso -->
                 <button type="button" onclick="obtenerUsuarioAutorizado()">Obtener Usuario Autorizado</button>
             </form>
         </div>
 
         <!--CONSULTA 19-->
-        <div id="obtenerFacturasClienteAutorizadas" class="hidden formulario">
-            <!-- Formulario e interfaz para obtener facturas autorizadas del cliente -->
-            <h2>Obtener Facturas Autorizadas del Cliente</h2>
+        <!-- Agrega este formulario en tu HTML -->
+        <div id="consultaFacturasAutorizadas" class="hidden formulario">
+            <h2>Consulta de Facturas Autorizadas</h2>
             <form>
-                <label for="cueIdFacturasAutorizadas">Cuenta de Cliente (cueId):</label>
-                <input type="text" id="cueIdFacturasAutorizadas" name="cueIdFacturasAutorizadas" required>
+                <label for="recaudador">Recaudador:</label>
+                <input type="text" id="recaudador" name="recaudador" required>
                 <br>
-                <button type="button" onclick="obtenerFacturasClienteAutorizadas()">Obtener Facturas Autorizadas del
-                    Cliente</button>
+                <label for="cueId">ID de Cuenta:</label>
+                <input type="number" id="cueId" name="cueId" required>
+                <br>
+                <button type="button" onclick="consultarFacturasAutorizadas()">Consultar Facturas Autorizadas</button>
             </form>
         </div>
-    </div>
 
-    <script src="./script.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <script>
+        <script src="./script.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-        function mostrarFormulario(formularioId) {
-            document.querySelectorAll('.formulario').forEach(function (formulario) {
-                formulario.classList.add('hidden');
-            });
-            document.getElementById(formularioId).classList.remove('hidden');
-        }
+        <script>
 
-        function cerrarVentana() {
-            var ventana = document.getElementById('resultadoVentana');
-            ventana.style.display = 'none';
-        }
-
-        function mostrarResultadosConsulta(datos) {
-            var ventana = document.getElementById('resultadoVentana');
-            var contenido = document.getElementById('resultadoContenido');
-
-            var htmlResultado = "<h3>Resultados de la Consulta</h3>";
-            htmlResultado += "<p>CUE_ID (Suministro): " + datos.cueId + "</p>";
-            htmlResultado += "<p>Interés: " + datos.interes + "</p>";
-            htmlResultado += "<p>VALOR (Deuda): " + datos.valorDeuda + "</p>";
-            htmlResultado += "<p>Nro. de cartas por pagar: " + datos.numCartasPagar + "</p>";
-
-            contenido.innerHTML = htmlResultado;
-            ventana.style.display = 'block';
-        }
-
-        //CONSULTA 1
-        function validaUsuario() {
-            var usuario = document.getElementById('usuarioValidar').value;
-            var contrasena = document.getElementById('contrasenaValidar').value;
-            console.log('Usuario validado:', usuario);
-        }
-        //CONSULTA 2
-        function obtenerDatosUsuario() {
-            var nombreUsuario = document.getElementById('nombreUsuario').value;
-            console.log('Obteniendo datos del usuario:', nombreUsuario);
-        }
-        //CONSULTA 3
-        function consultaCliente() {
-            const tipoBusqueda = document.getElementById('tipoBusqueda').value;
-            const parametroBusqueda = document.getElementById('parametroBusqueda').value;
-            realizarConsultaCliente(tipoBusqueda, parametroBusqueda);
-        }
-
-        //CONSULTA 4
-        async function consultaFacturasCliente(cueId) {
-            //const corsAnywhereURL = 'https://cors-anywhere.herokuapp.com/';
-            const url = 'http://186.42.112.70:8094/principal.asmx';
-            //const url = 'http://localhost:3000/proxy';
-
-            // const url = corsAnywhereURL + serviceURL;
-
-            // const soapEnvelope = '<? xml version = "1.0" encoding = "utf-8" ?>\n'
-            //     + '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://tempuri.org/">\n'
-            //     + '<soapenv:Header />\n'
-            //     + '<soapenv:Body>\n'
-            //     + '<web:SP_WS_FACTURAS_CLIENTE>\n'
-            //     + <web:cueId>${cueId}</web:cueId>\n
-            //     + '</web:SP_WS_FACTURAS_CLIENTE>\n'
-            //     + '</soapenv:Body>\n'
-            //     + '</soapenv:Envelope>';
-
-            const soapEnvelope = '<?xml version="1.0" encoding="utf-8"?>\n'
-                + '<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">\n'
-                + '<soap12:Body>\n'
-                + '<SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">\n'
-                + '<LN_CUE_ID>' + cueId + '</LN_CUE_ID>\n'
-                + '</SP_WS_FACTURAS_CLIENTE>\n'
-                + '</soap12:Body>\n'
-                + '</soap12:Envelope>\n'
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    mode: "cors",
-                    headers: {
-                        'Content-Type': 'application/soap+xml; charset=utf-8',
-                        // 'SOAPAction': 'http://tempuri.org/SP_WS_FACTURAS_CLIENTE',
-                        // "Content-Length": "length"
-
-                    },
-                    body: soapEnvelope
+            function mostrarFormulario(formularioId) {
+                document.querySelectorAll('.formulario').forEach(function (formulario) {
+                    formulario.classList.add('hidden');
                 });
+                document.getElementById(formularioId).classList.remove('hidden');
+            }
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+            function cerrarVentana() {
+                var ventana = document.getElementById('resultadoVentana');
+                ventana.style.display = 'none';
+            }
+
+            function mostrarResultadosConsulta(datos) {
+                var ventana = document.getElementById('resultadoVentana');
+                var contenido = document.getElementById('resultadoContenido');
+
+                var htmlResultado = "<h3>Resultados de la Consulta</h3>";
+                htmlResultado += "<p>CUE_ID (Suministro): " + datos.cueId + "</p>";
+                htmlResultado += "<p>Interés: " + datos.interes + "</p>";
+                htmlResultado += "<p>VALOR (Deuda): " + datos.valorDeuda + "</p>";
+                htmlResultado += "<p>Nro. de cartas por pagar: " + datos.numCartasPagar + "</p>";
+
+                contenido.innerHTML = htmlResultado;
+                ventana.style.display = 'block';
+            }
+
+            //CONSULTA 1
+            function validaUsuario() {
+                var usuario = document.getElementById('usuarioValidar').value;
+                var contrasena = document.getElementById('contrasenaValidar').value;
+                console.log('Usuario validado:', usuario);
+            }
+            //CONSULTA 2
+            function obtenerDatosUsuario() {
+                var nombreUsuario = document.getElementById('nombreUsuario').value;
+                console.log('Obteniendo datos del usuario:', nombreUsuario);
+            }
+            //CONSULTA 3
+            function consultaCliente() {
+                const tipoBusqueda = document.getElementById('tipoBusqueda').value;
+                const parametroBusqueda = document.getElementById('parametroBusqueda').value;
+                realizarConsultaCliente(tipoBusqueda, parametroBusqueda);
+            }
+
+            //CONSULTA 4
+            async function realizarConsultaFacturas(cueId) {
+                console.log("Esto es la función realizarConsultaFacturas");
+                const url = "http://127.0.0.1:3000/api/principal.asmx";
+
+                const soapEnvelope = `
+  <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
+      <LN_CUE_ID>${cueId}</LN_CUE_ID>
+    </SP_WS_FACTURAS_CLIENTE>
+  </soap:Body>
+</soap:Envelope>
+  `;
+
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/xml;charset=utf-8",
+                            "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE"
+                        },
+                        body: soapEnvelope,
+                    });
+
+                    console.log("Esto es un response:", response);
+                    if (!response.ok) {
+                        console.log("Esto es un error");
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    console.log("Esto es esta bien");
+                    const text = await response.text();
+                    console.log("Esto es una respuesta:", text);
+
+
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "text/xml");
+
+                    const tables = xmlDoc.getElementsByTagName("Table");
+
+                    if (tables.length > 0) {
+                        for (let i = 0; i < tables.length; i++) {
+                            const table = tables[i];
+                            const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
+                            const fsrNumeroCompleto = table.getElementsByTagName("FSR_NUMERO_COMPLETO")[0].textContent;
+                            console.log(`FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}`);
+                            //colocar los demas uwu
+                        }
+                    } else {
+                        console.log("No se encontraron datos en la tabla.");
+                    }
+
+
+                } catch (error) {
+                    console.error("Error en la consulta de facturas del cliente:", error);
+                }
+            }
+
+            function consultaFacturasCliente() {
+                const cueId = document.getElementById('cueIdFacturas').value;
+                console.log('Consultando facturas del cliente:', cueId);
+                realizarConsultaFacturas(cueId);
+            }
+
+
+
+
+            //CONSULTA 5
+            async function realizarConsultaFacturasClienteDataset(cueId) {
+                console.log("Esto es la función realizarConsultaFacturas");
+                const url = "http://127.0.0.1:3000/api/principal.asmx";
+
+                const soapEnvelope = `
+  <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
+      <LN_CUE_ID>${cueId}</LN_CUE_ID>
+    </SP_WS_FACTURAS_CLIENTE>
+  </soap:Body>
+</soap:Envelope>
+  `;
+
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/xml;charset=utf-8",
+                            "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE"
+                        },
+                        body: soapEnvelope,
+                    });
+
+                    console.log("Esto es un response:", response);
+                    if (!response.ok) {
+                        console.log("Esto es un error");
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    console.log("Esto es esta bien");
+                    const text = await response.text();
+                    console.log("Esto es una respuesta:", text);
+
+
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "text/xml");
+
+                    const tables = xmlDoc.getElementsByTagName("Table");
+
+                    if (tables.length > 0) {
+                        for (let i = 0; i < tables.length; i++) {
+                            const table = tables[i];
+                            const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
+                            const fsrNumeroCompleto = table.getElementsByTagName("FSR_NUMERO_COMPLETO")[0].textContent;
+                            console.log(`FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}`);
+                            //colocar los demas uwu
+                        }
+                    } else {
+                        console.log("No se encontraron datos en la tabla.");
+                    }
+
+
+                } catch (error) {
+                    console.error("Error en la consulta de facturas del cliente:", error);
+                }
+            }
+
+
+            function consultaFacturasClienteDataset() {
+                const cueId = document.getElementById('cueIdFacturasDataset').value;
+                console.log('Consultando facturas Dataset del cliente:', cueId);
+                realizarConsultaFacturas(cueId);
+            }
+
+            //CONSULTA 6
+
+            async function realizarConsultaDetalleFacturas(cueId) {
+                console.log("Esto es la función realizarConsultaDetalleFacturas");
+                const url = "http://127.0.0.1:3000/api/principal.asmx";
+
+                const soapEnvelope = `
+  <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
+      <LN_CUE_ID>${cueId}</LN_CUE_ID>
+    </SP_WS_FACTURAS_CLIENTE>
+  </soap:Body>
+</soap:Envelope>
+  `;
+
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/xml;charset=utf-8",
+                            "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE"
+                        },
+                        body: soapEnvelope,
+                    });
+
+                    console.log("Esto es un response:", response);
+                    if (!response.ok) {
+                        console.log("Esto es un error");
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    console.log("Esto es esta bien");
+                    const text = await response.text();
+                    console.log("Esto es una respuesta:", text);
+
+
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "text/xml");
+
+                    const tables = xmlDoc.getElementsByTagName("Table");
+
+                    if (tables.length > 0) {
+                        for (let i = 0; i < tables.length; i++) {
+                            const table = tables[i];
+                            const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
+                            const fsrNumeroCompleto = table.getElementsByTagName("FSR_NUMERO_COMPLETO")[0].textContent;
+                            console.log(`FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}`);
+                            //colocar los demas uwu
+                        }
+                    } else {
+                        console.log("No se encontraron datos en la tabla.");
+                    }
+
+
+                } catch (error) {
+                    console.error("Error en la consulta del detalle de facturas del cliente:", error);
+                }
+            }
+
+            function consultaDetalleFacturasCliente() {
+                const cueId = document.getElementById('cueIdDetalleFacturas').value;
+                console.log('Consultando detalle de facturas del cliente:', cueId);
+                realizarConsultaDetalleFacturas(cueId);
+            }
+
+
+            //CONSULTA 7
+            function realizarProcesoFacturacion() {
+                const cueId = document.getElementById('cueId').value;
+                const recaudador = document.getElementById('recaudador').value;
+                const formaPago = document.getElementById('formaPago').value;
+                const banco = document.getElementById('banco').value;
+                const cuenta = document.getElementById('cuenta').value;
+                const numeroCheque = document.getElementById('numeroCheque').value;
+                const beneficiario = document.getElementById('beneficiario').value;
+                const observacion = document.getElementById('observacion').value;
+                procesoFacturacion(cueId, recaudador, formaPago, banco, cuenta, numeroCheque, beneficiario, observacion);
+            }
+
+            //CONSULTA 8
+            function procesoFacturacionSeleccion() {
+                const cueId = document.getElementById('cueIdSeleccion').value;
+                const recaudador = document.getElementById('recaudadorSeleccion').value;
+                const numFacturas = document.getElementById('numFacturas').value;
+                const parametro = document.getElementById('parametro').value;
+                realizarProcesoFacturacionSeleccion(cueId, recaudador, numFacturas, parametro);
+            }
+
+            //CONSULTA 9
+            function realizarConsultaFacturasProcesadas() {
+                const freId = document.getElementById('freId').value;
+                consultaFacturasProcesadas(freId);
+            }
+
+            //CONSULTA 10
+            async function consultaFactura(fsrId) {
+                const url = "http://127.0.0.1:3000/api/principal.asmx";
+
+                const soapEnvelope = `
+          <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+              <SP_WS_CONSULTA_FACTURA_PROCESADA xmlns="http://tempuri.org/">
+                <LI_FSR_ID>${fsrId}</LI_FSR_ID>
+              </SP_WS_CONSULTA_FACTURA_PROCESADA>
+            </soap:Body>
+          </soap:Envelope>
+        `;
+
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/xml;charset=utf-8",
+                            "SOAPAction": "http://tempuri.org/SP_WS_CONSULTA_FACTURA_PROCESADA"
+                        },
+                        body: soapEnvelope,
+                    });
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "text/xml");
+
+                    const tables = Array.from(xmlDoc.getElementsByTagName("Table"));
+
+                    if (tables.length > 0) {
+                        tables.forEach(table => {
+                            const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
+                            const cueId = table.getElementsByTagName("CUE_ID")[0].textContent;
+                            const cleCiRuc = table.getElementsByTagName("CLE_CI_RUC")[0].textContent;
+
+                            console.log(`FSR_ID: ${fsrId}, CUE_ID: ${cueId}, CLE_CI_RUC: ${cleCiRuc}`);
+                            // Agregar más campos según sea necesario
+                        });
+                    } else {
+                        console.log("No se encontraron datos en la tabla.");
+                    }
+
+                } catch (error) {
+                    console.error("Error en la consulta de factura procesada:", error);
+                }
+            }
+
+            function consultaFacturaProcesada() {
+                const fsrId = document.getElementById('idFacturaProcesada').value;
+                console.log('Consultando factura procesada:', fsrId);
+                consultaFactura(fsrId);
+            }
+
+
+
+            //CONSULTA 11
+            function realizarReversoTransacciones() {
+                // Obtener los valores de los campos de entrada
+                const freId = document.getElementById('freId').value;
+                const recaudador = document.getElementById('recaudador').value;
+
+                // Llamar a la función de reversoTransacciones con los valores proporcionados
+                reversoTransacciones(freId, recaudador);
+            }
+
+            //CONSULTA 12
+            function reversoTransacciones() {
+                const freId = document.getElementById('freId').value;
+                const recaudador = document.getElementById('recaudador').value;
+                realizarReversoTransacciones(freId, recaudador);
+            }
+
+            //CONSULTA 13
+            function reporteTransaccionesRV() {
+                const recaudador = document.getElementById('recaudadorRV').value;
+                const fechaDesde = document.getElementById('fechaDesdeRV').value;
+                const fechaHasta = document.getElementById('fechaHastaRV').value;
+                const filtro = document.getElementById('filtroRV').value;
+                generarReporteTransacciones(recaudador, fechaDesde, fechaHasta, filtro);
+            }
+
+            //CONSULTA 14
+            async function registrarFormaPago() {
+                // Obtén el elemento con el id tipoFormaPago
+                const tipoFormaPagoInput = document.getElementById('tipoFormaPago');
+
+                // Verifica si el elemento existe
+                if (!tipoFormaPagoInput) {
+                    console.error("Error: No se encontró el elemento con id tipoFormaPago.");
+                    return;
                 }
 
-                const text = await response.text();
-                console.log(text);
-                // Procesar la respuesta aquí
-            } catch (error) {
-                console.error('Error en la consulta de facturas del cliente:', error);
+                // Obtén el valor del campo tipoFormaPago y conviértelo a un número entero
+                const tipoFormaPago = parseInt(tipoFormaPagoInput.value);
+
+                if (isNaN(tipoFormaPago)) {
+                    // Manejar el caso en el que el valor no sea un número
+                    console.error("Error: tipoFormaPago debe ser un número entero.");
+                    return;
+                }
+
+                const url = "http://127.0.0.1:3000/api/principal.asmx";
+
+                const soapEnvelope = `
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <SP_WS_FORMA_PAGO xmlns="http://tempuri.org/">
+                    <LI_TIPO_F_PAGO>${tipoFormaPago}</LI_TIPO_F_PAGO>
+                </SP_WS_FORMA_PAGO>
+            </soap:Body>
+        </soap:Envelope>
+    `;
+
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/xml;charset=utf-8",
+                            "SOAPAction": "http://tempuri.org/SP_WS_FORMA_PAGO",
+                        },
+                        body: soapEnvelope,
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}, response: ${await response.text()}`);
+                    }
+
+                    const text = await response.text();
+                    console.log("Respuesta completa del servidor:", text);
+
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "text/xml");
+
+                    const tables = Array.from(xmlDoc.getElementsByTagName("Table"));
+
+                    if (tables.length > 0) {
+                        tables.forEach(table => {
+                            const tipoFormaPago = table.querySelector("PRM_ID").textContent;
+                            const descripcion = table.querySelector("PRM_DESCRIPCION").textContent;
+                            console.log(`Tipo de Forma de Pago: ${tipoFormaPago}, Descripción: ${descripcion}`);
+                            // Agregar lógica para mostrar otros datos si es necesario
+                        });
+                    } else {
+                        console.log("No se encontraron datos en la tabla.");
+                    }
+                } catch (error) {
+                    console.error("Error en la consulta de forma de pago:", error);
+                }
             }
-        }
-        //function llamarConsultaFacturasCliente() {
-        // Puedes obtener el cueId de alguna manera, ya sea de un formulario o de otro elemento en tu HTML
-        //  const cueId = obtenerCueIdDeAlgunaManera();
-        //consultaFacturasCliente(cueId);
-        //}
-
-        //CONSULTA 5
-        function consultaFacturasClienteDataset() {
-            const cueId = document.getElementById('cueIdDataset').value;
-            console.log('Consultando facturas del cliente con dataset:', cueId);
-            realizarConsultaFacturasClienteDataset(cueId);
-        }
-
-        //CONSULTA 6
-        function consultaDetalleFacturasCliente() {
-            // Correcting the element ID to match the HTML
-            const cueId = document.getElementById('cueIdDetalleFacturas').value;
-            console.log('Consultando detalle de facturas del cliente:', cueId);
-            realizarConsultaDetalleFacturas(cueId);
-        }
 
 
-        //CONSULTA 7
-        function realizarProcesoFacturacion() {
-            const cueId = document.getElementById('cueId').value;
-            const recaudador = document.getElementById('recaudador').value;
-            const formaPago = document.getElementById('formaPago').value;
-            const banco = document.getElementById('banco').value;
-            const cuenta = document.getElementById('cuenta').value;
-            const numeroCheque = document.getElementById('numeroCheque').value;
-            const beneficiario = document.getElementById('beneficiario').value;
-            const observacion = document.getElementById('observacion').value;
-            procesoFacturacion(cueId, recaudador, formaPago, banco, cuenta, numeroCheque, beneficiario, observacion);
-        }
+            // Llamada a la función con un ejemplo de tipo de forma de pago
+            function consultaFormaPago() {
+                const tipoFormaPago = document.getElementById('tipoFormaPago').value;
+                console.log('Consultando forma de pago:', tipoFormaPago);
+                registrarFormaPago(tipoFormaPago);
+            }
 
-        //CONSULTA 8
-        function procesoFacturacionSeleccion() {
-            const cueId = document.getElementById('cueIdSeleccion').value;
-            const recaudador = document.getElementById('recaudadorSeleccion').value;
-            const numFacturas = document.getElementById('numFacturas').value;
-            const parametro = document.getElementById('parametro').value;
-            realizarProcesoFacturacionSeleccion(cueId, recaudador, numFacturas, parametro);
-        }
 
-        //CONSULTA 9
-        function realizarConsultaFacturasProcesadas() {
-            const freId = document.getElementById('freId').value;
-            consultaFacturasProcesadas(freId);
-        }
 
-        //CONSULTA 10
-        function realizarConsultaFacturaProcesada() {
-            const fsrId = document.getElementById('fsrId').value;
-            consultaFacturaProcesada(fsrId);
-        }
 
-        //CONSULTA 11
-        function realizarReversoTransacciones() {
-            // Obtener los valores de los campos de entrada
-            const freId = document.getElementById('freId').value;
-            const recaudador = document.getElementById('recaudador').value;
+            //CONSULTA 15
+            async function consultarUsuarioFacturacion() {
+                const url = "http://127.0.0.1:3000/api/principal.asmx";  // Ajusta la URL según tu entorno
 
-            // Llamar a la función de reversoTransacciones con los valores proporcionados
-            reversoTransacciones(freId, recaudador);
-        }
+                // Obtener el valor del campo de entrada
+                const usuario = document.getElementById('usuarioFacturacion').value;
 
-        //CONSULTA 12
-        function reversoTransacciones() {
-            const freId = document.getElementById('freId').value;
-            const recaudador = document.getElementById('recaudador').value;
-            realizarReversoTransacciones(freId, recaudador);
-        }
+                const soapEnvelope = `
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <SP_WS_USUARIO_FACTURACION xmlns="http://tempuri.org/">
+                    <LS_USR_USER>${usuario}</LS_USR_USER>
+                </SP_WS_USUARIO_FACTURACION>
+            </soap:Body>
+        </soap:Envelope>
+    `;
 
-        //CONSULTA 13
-        function reporteTransaccionesRV() {
-            const recaudador = document.getElementById('recaudadorRV').value;
-            const fechaDesde = document.getElementById('fechaDesdeRV').value;
-            const fechaHasta = document.getElementById('fechaHastaRV').value;
-            const filtro = document.getElementById('filtroRV').value;
-            generarReporteTransacciones(recaudador, fechaDesde, fechaHasta, filtro);
-        }
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/xml;charset=utf-8",
+                            "SOAPAction": "http://tempuri.org/SP_WS_USUARIO_FACTURACION"
+                        },
+                        body: soapEnvelope,
+                    });
 
-        //CONSULTA 14
-        function realizarRegistroFormaPago() {
-            const liTipoFPago = document.getElementById('liTipoFPago').value;
-            registrarFormaPago(liTipoFPago);
-        }
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
 
-        //CONSULTA 15
-        function realizarAsignacionOpcionMenu() {
-            // Obtener los valores de los campos de entrada
-            const lsUsrUser = document.getElementById('lsUsrUser').value;
+                    const text = await response.text();
+                    procesarRespuestaUsuarioFacturacion(text);
 
-            // Llamar a la función asignarOpcionMenu con los valores proporcionados
-            asignarOpcionMenu(lsUsrUser);
-        }
+                } catch (error) {
+                    console.error("Error en la consulta de usuario de facturación:", error);
+                }
+            }
 
-        //CONSULTA 16
-        function realizarObtencionFacturasCliente() {
-            const lnCueId = document.getElementById('lnCueId').value;
-            const lsFacRecaudador = document.getElementById('lsFacRecaudador').value;
-            const lnFsrId = document.getElementById('lnFsrId').value;
-            obtenerFacturasCliente(lnCueId, lsFacRecaudador, lnFsrId);
-        }
+            function procesarRespuestaUsuarioFacturacion(xmlResponse) {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlResponse, "text/xml");
 
-        //CONSULTA 17
-        function realizarAsignacion() {
-            const lsUsrAutoriza = document.getElementById('lsUsrAutoriza').value;
-            const lsUsrAutorizado = document.getElementById('lsUsrAutorizado').value;
-            const lfCueId = document.getElementById('lfCueId').value;
-            const lsFsrId = document.getElementById('lsFsrId').value;
-            const lfTotal = document.getElementById('lfTotal').value;
-            const liFiltro = document.getElementById('liFiltro').value;
-            asignarOpcionMenu(lsUsrAutoriza, lsUsrAutorizado, lfCueId, lsFsrId, lfTotal, liFiltro);
-        }
+                const resultNode = xmlDoc.querySelector("SP_WS_USUARIO_FACTURACIONResult");
 
-        //CONSULTA 18
-        function realizarObtencionUsuarioAutorizado() {
-            obtenerUsuarioAutorizado();
-        }
+                if (resultNode) {
+                    const resultado = resultNode.textContent;
+                    console.log("Resultado de la consulta de usuario de facturación:", resultado);
+                    // Puedes realizar acciones adicionales según sea necesario
+                } else {
+                    console.log("No se encontró el nodo de resultado en la respuesta.");
+                }
+            }
 
-        //CONSULTA 19
-        function realizarObtencionFacturasAutorizadas() {
-            const glsFacRecaudador = document.getElementById('glsFacRecaudador').value;
-            const glnCueId = document.getElementById('glnCueId').value;
-            obtenerFacturasClienteAutorizadas(glsFacRecaudador, glnCueId);
-        }
-    </script>
+            function realizarAsignacionOpcionMenu() {
+                // Obtener los valores de los campos de entrada
+                const lsUsrUser = document.getElementById('lsUsrUser').value;
+
+                // Llamar a la función asignarOpcionMenu con los valores proporcionados
+                asignarOpcionMenu(lsUsrUser);
+            }
+
+            //CONSULTA 16
+            function realizarObtencionFacturasCliente() {
+                const lnCueId = document.getElementById('lnCueId').value;
+                const lsFacRecaudador = document.getElementById('lsFacRecaudador').value;
+                const lnFsrId = document.getElementById('lnFsrId').value;
+                obtenerFacturasCliente(lnCueId, lsFacRecaudador, lnFsrId);
+            }
+
+            //CONSULTA 17
+            function realizarAsignacion() {
+                const lsUsrAutoriza = document.getElementById('lsUsrAutoriza').value;
+                const lsUsrAutorizado = document.getElementById('lsUsrAutorizado').value;
+                const lfCueId = document.getElementById('lfCueId').value;
+                const lsFsrId = document.getElementById('lsFsrId').value;
+                const lfTotal = document.getElementById('lfTotal').value;
+                const liFiltro = document.getElementById('liFiltro').value;
+                asignarOpcionMenu(lsUsrAutoriza, lsUsrAutorizado, lfCueId, lsFsrId, lfTotal, liFiltro);
+            }
+
+            //CONSULTA 18
+            function mostrarResultado(resultado) {
+                console.log("Resultado:", resultado);
+                // Puedes agregar lógica adicional para mostrar el resultado en tu página HTML
+            }
+
+            async function obtenerUsuarioAutorizado() {
+                console.log("Obteniendo Usuario Autorizado");
+
+                const url = "http://127.0.0.1:3000/api/principal.asmx";
+
+                const soapEnvelope = `
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <SP_WS_USUARIO_AUTORIZADO xmlns="http://tempuri.org/" />
+            </soap:Body>
+        </soap:Envelope>
+    `;
+
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/xml;charset=utf-8",
+                            "SOAPAction": "http://tempuri.org/SP_WS_USUARIO_AUTORIZADO"
+                        },
+                        body: soapEnvelope,
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const text = await response.text();
+
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "text/xml");
+
+                    const usuarios = Array.from(xmlDoc.getElementsByTagName("USR_USER")).map(usuario => usuario.textContent);
+
+                    if (usuarios.length > 0) {
+                        console.log("Usuarios Autorizados:", usuarios);
+                    } else {
+                        console.log("No se encontraron usuarios autorizados.");
+                    }
+                } catch (error) {
+                    console.error("Error al obtener información de usuario autorizado:", error);
+                }
+            }
+
+            //CONSULTA 19
+            async function consultarFacturasAutorizadas() {
+                const url = "http://127.0.0.1:3000/api/principal.asmx";  // Ajusta la URL según tu entorno
+
+                // Obtener los valores de los campos de entrada
+                const recaudador = document.getElementById('recaudador').value;
+                const cueId = document.getElementById('cueId').value;
+
+                const soapEnvelope = `
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <SP_WS_FACTURAS_CLIENTE_AUTORIZADAS xmlns="http://tempuri.org/">
+                    <LS_FAC_RECAUDADOR>${recaudador}</LS_FAC_RECAUDADOR>
+                    <LN_CUE_ID>${cueId}</LN_CUE_ID>
+                </SP_WS_FACTURAS_CLIENTE_AUTORIZADAS>
+            </soap:Body>
+        </soap:Envelope>
+    `;
+
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "text/xml;charset=utf-8",
+                            "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE_AUTORIZADAS"
+                        },
+                        body: soapEnvelope,
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const text = await response.text();
+                    procesarRespuestaFacturasAutorizadas(text);
+
+                } catch (error) {
+                    console.error("Error en la consulta de facturas autorizadas:", error);
+                }
+            }
+
+            function procesarRespuestaFacturasAutorizadas(xmlResponse) {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlResponse, "text/xml");
+
+                const resultNode = xmlDoc.querySelector("SP_WS_FACTURAS_CLIENTE_AUTORIZADASResult");
+
+                if (resultNode) {
+                    // Puedes procesar y mostrar los datos de la respuesta según tus necesidades
+                    const tables = Array.from(resultNode.getElementsByTagName("Table"));
+
+                    if (tables.length > 0) {
+                        tables.forEach(table => {
+                            const id = table.getElementsByTagName("ID")[0].textContent;
+                            const usuarioAutorizado = table.getElementsByTagName("FAC_USUARIO_AUTORIZADO")[0].textContent;
+                            const cueId = table.getElementsByTagName("FAC_CUE_ID")[0].textContent;
+                            const fsrId = table.getElementsByTagName("FAC_FSR_ID")[0].textContent;
+
+                            console.log(`ID: ${id}, Usuario Autorizado: ${usuarioAutorizado}, Cuenta ID: ${cueId}, FSR ID: ${fsrId}`);
+                            // Agrega más campos según sea necesario
+                        });
+                    } else {
+                        console.log("No se encontraron datos en la tabla.");
+                    }
+                } else {
+                    console.log("No se encontró el nodo de resultado en la respuesta.");
+                }
+            }
+
+        </script>
 
 </body>
 
