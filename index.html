@@ -238,12 +238,13 @@
             <!-- Formulario e interfaz para registrar forma de pago -->
             <h2>Registrar Forma de Pago</h2>
             <form>
-                <label for="nombreFormaPago">Nombre de la Forma de Pago:</label>
+                <label for="tipoFormaPago">Nombre de la Forma de Pago:</label>
                 <input type="text" id="tipoFormaPago" name="tipoFormaPago" required>
                 <br>
                 <button type="button" onclick="registrarFormaPago()">Registrar Forma de Pago</button>
             </form>
         </div>
+
 
         <!--CONSULTA 15-->
         <!-- Agrega este formulario en tu HTML -->
@@ -321,6 +322,14 @@
                 document.getElementById(formularioId).classList.remove('hidden');
             }
 
+            async function mostrarResultadoEnVentana(resultado) {
+                // Actualiza el contenido de la ventana emergente
+                document.getElementById('resultadoContenido').innerHTML = resultado;
+
+                // Muestra la ventana emergente
+                document.getElementById('resultadoVentana').style.display = 'block';
+            }
+
             function cerrarVentana() {
                 var ventana = document.getElementById('resultadoVentana');
                 ventana.style.display = 'none';
@@ -344,8 +353,50 @@
             function validaUsuario() {
                 var usuario = document.getElementById('usuarioValidar').value;
                 var contrasena = document.getElementById('contrasenaValidar').value;
-                console.log('Usuario validado:', usuario);
+
+                // Aquí puedes realizar la lógica de validación de usuario y contraseña si es necesario.
+
+                // Ejemplo: Mostrar el resultado en una ventana llamada 'resultadoVentana'
+                var ventana = document.createElement("div");
+                ventana.classList.add("resultadoVentana");
+                ventana.style.position = "fixed";
+                ventana.style.top = "50%";
+                ventana.style.left = "50%";
+                ventana.style.transform = "translate(-50%, -50%)";
+                ventana.style.background = "white";
+                ventana.style.padding = "20px";
+                ventana.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+                document.body.appendChild(ventana);
+
+                var contenido = document.createElement("div");
+                contenido.setAttribute("id", "resultadoContenido");
+                ventana.appendChild(contenido);
+
+                var htmlResultado = "<h3>Resultado de Validación de Usuario</h3>";
+                htmlResultado += "<p>Usuario validado: " + usuario + "</p>";
+                // Agrega más información según sea necesario
+
+                contenido.innerHTML = htmlResultado;
+
+                // Crear botón de cierre
+                var cerrarBoton = document.createElement("button");
+                cerrarBoton.innerHTML = "Cerrar";
+                cerrarBoton.addEventListener("click", function () {
+                    document.body.removeChild(ventana);
+                });
+                contenido.appendChild(cerrarBoton);
+
+                // Cerrar la ventana al hacer clic fuera de ella
+                ventana.addEventListener("click", function (event) {
+                    if (event.target === ventana) {
+                        document.body.removeChild(ventana);
+                    }
+                });
+
+                ventana.style.display = 'block';
             }
+
+
             //CONSULTA 2
             function obtenerDatosUsuario() {
                 var nombreUsuario = document.getElementById('nombreUsuario').value;
@@ -364,14 +415,14 @@
                 const url = "http://127.0.0.1:3000/api/principal.asmx";
 
                 const soapEnvelope = `
-  <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Body>
-    <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
-      <LN_CUE_ID>${cueId}</LN_CUE_ID>
-    </SP_WS_FACTURAS_CLIENTE>
-  </soap:Body>
-</soap:Envelope>
-  `;
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
+                    <LN_CUE_ID>${cueId}</LN_CUE_ID>
+                </SP_WS_FACTURAS_CLIENTE>
+            </soap:Body>
+        </soap:Envelope>
+    `;
 
                 try {
                     const response = await fetch(url, {
@@ -393,29 +444,61 @@
                     const text = await response.text();
                     console.log("Esto es una respuesta:", text);
 
-
                     const parser = new DOMParser();
                     const xmlDoc = parser.parseFromString(text, "text/xml");
 
                     const tables = xmlDoc.getElementsByTagName("Table");
 
                     if (tables.length > 0) {
+                        // Crear una ventana flotante para mostrar los resultados
+                        var ventana = document.createElement("div");
+                        ventana.classList.add("resultadoVentana");
+                        ventana.style.position = "fixed";
+                        ventana.style.top = "50%";
+                        ventana.style.left = "50%";
+                        ventana.style.transform = "translate(-50%, -50%)";
+                        ventana.style.background = "white";
+                        ventana.style.padding = "20px";
+                        ventana.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+                        document.body.appendChild(ventana);
+
+                        // Crear botón de cierre
+                        var cerrarBoton = document.createElement("button");
+                        cerrarBoton.innerHTML = "Cerrar";
+                        cerrarBoton.addEventListener("click", function () {
+                            document.body.removeChild(ventana);
+                        });
+                        ventana.appendChild(cerrarBoton);
+
+                        // Cerrar la ventana al hacer clic fuera de ella
+                        ventana.addEventListener("click", function (event) {
+                            if (event.target === ventana) {
+                                document.body.removeChild(ventana);
+                            }
+                        });
+
                         for (let i = 0; i < tables.length; i++) {
                             const table = tables[i];
                             const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
                             const fsrNumeroCompleto = table.getElementsByTagName("FSR_NUMERO_COMPLETO")[0].textContent;
+
+                            // Crear elementos para mostrar los datos
+                            var resultadoItem = document.createElement("p");
+                            resultadoItem.innerHTML = `FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}`;
+                            ventana.appendChild(resultadoItem);
+
                             console.log(`FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}`);
-                            //colocar los demas uwu
+                            //colocar los demás uwu
                         }
                     } else {
                         console.log("No se encontraron datos en la tabla.");
                     }
-
-
                 } catch (error) {
                     console.error("Error en la consulta de facturas del cliente:", error);
                 }
             }
+
+
 
             function consultaFacturasCliente() {
                 const cueId = document.getElementById('cueIdFacturas').value;
@@ -432,13 +515,13 @@
                 const url = "http://127.0.0.1:3000/api/principal.asmx";
 
                 const soapEnvelope = `
-  <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Body>
-    <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
-      <LN_CUE_ID>${cueId}</LN_CUE_ID>
-    </SP_WS_FACTURAS_CLIENTE>
-  </soap:Body>
-</soap:Envelope>
+    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+      <soap:Body>
+        <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
+          <LN_CUE_ID>${cueId}</LN_CUE_ID>
+        </SP_WS_FACTURAS_CLIENTE>
+      </soap:Body>
+    </soap:Envelope>
   `;
 
                 try {
@@ -446,7 +529,7 @@
                         method: "POST",
                         headers: {
                             "Content-Type": "text/xml;charset=utf-8",
-                            "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE"
+                            "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE",
                         },
                         body: soapEnvelope,
                     });
@@ -461,29 +544,63 @@
                     const text = await response.text();
                     console.log("Esto es una respuesta:", text);
 
-
                     const parser = new DOMParser();
                     const xmlDoc = parser.parseFromString(text, "text/xml");
 
                     const tables = xmlDoc.getElementsByTagName("Table");
 
                     if (tables.length > 0) {
+                        // Crear ventana flotante
+                        var ventana = document.createElement("div");
+                        ventana.classList.add("resultadoVentana");
+                        ventana.style.position = "fixed";
+                        ventana.style.top = "50%";
+                        ventana.style.left = "50%";
+                        ventana.style.transform = "translate(-50%, -50%)";
+                        ventana.style.background = "white";
+                        ventana.style.padding = "20px";
+                        ventana.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+                        document.body.appendChild(ventana);
+
+                        var contenido = document.createElement("div");
+                        contenido.setAttribute("id", "resultadoContenido");
+                        ventana.appendChild(contenido);
+
+                        // Iterar sobre los resultados y agregarlos al contenido
                         for (let i = 0; i < tables.length; i++) {
                             const table = tables[i];
                             const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
                             const fsrNumeroCompleto = table.getElementsByTagName("FSR_NUMERO_COMPLETO")[0].textContent;
-                            console.log(`FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}`);
-                            //colocar los demas uwu
+
+                            // Agregar los resultados al contenido de la ventana
+                            var resultadoHTML = `<p>FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}</p>`;
+                            contenido.innerHTML += resultadoHTML;
                         }
+
+                        // Crear botón de cierre
+                        var cerrarBoton = document.createElement("button");
+                        cerrarBoton.innerHTML = "Cerrar";
+                        cerrarBoton.addEventListener("click", function () {
+                            document.body.removeChild(ventana);
+                        });
+                        contenido.appendChild(cerrarBoton);
+
+                        // Cerrar la ventana al hacer clic fuera de ella
+                        ventana.addEventListener("click", function (event) {
+                            if (event.target === ventana) {
+                                document.body.removeChild(ventana);
+                            }
+                        });
+
+                        ventana.style.display = "block";
                     } else {
                         console.log("No se encontraron datos en la tabla.");
                     }
-
-
                 } catch (error) {
                     console.error("Error en la consulta de facturas del cliente:", error);
                 }
             }
+
 
 
             function consultaFacturasClienteDataset() {
@@ -493,19 +610,18 @@
             }
 
             //CONSULTA 6
-
             async function realizarConsultaDetalleFacturas(cueId) {
                 console.log("Esto es la función realizarConsultaDetalleFacturas");
                 const url = "http://127.0.0.1:3000/api/principal.asmx";
 
                 const soapEnvelope = `
-  <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Body>
-    <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
-      <LN_CUE_ID>${cueId}</LN_CUE_ID>
-    </SP_WS_FACTURAS_CLIENTE>
-  </soap:Body>
-</soap:Envelope>
+    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+      <soap:Body>
+        <SP_WS_FACTURAS_CLIENTE xmlns="http://tempuri.org/">
+          <LN_CUE_ID>${cueId}</LN_CUE_ID>
+        </SP_WS_FACTURAS_CLIENTE>
+      </soap:Body>
+    </soap:Envelope>
   `;
 
                 try {
@@ -513,7 +629,7 @@
                         method: "POST",
                         headers: {
                             "Content-Type": "text/xml;charset=utf-8",
-                            "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE"
+                            "SOAPAction": "http://tempuri.org/SP_WS_FACTURAS_CLIENTE",
                         },
                         body: soapEnvelope,
                     });
@@ -528,29 +644,63 @@
                     const text = await response.text();
                     console.log("Esto es una respuesta:", text);
 
-
                     const parser = new DOMParser();
                     const xmlDoc = parser.parseFromString(text, "text/xml");
 
                     const tables = xmlDoc.getElementsByTagName("Table");
 
                     if (tables.length > 0) {
+                        // Crear ventana flotante
+                        var ventana = document.createElement("div");
+                        ventana.classList.add("resultadoVentana");
+                        ventana.style.position = "fixed";
+                        ventana.style.top = "50%";
+                        ventana.style.left = "50%";
+                        ventana.style.transform = "translate(-50%, -50%)";
+                        ventana.style.background = "white";
+                        ventana.style.padding = "20px";
+                        ventana.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+                        document.body.appendChild(ventana);
+
+                        var contenido = document.createElement("div");
+                        contenido.setAttribute("id", "resultadoContenido");
+                        ventana.appendChild(contenido);
+
+                        // Iterar sobre los resultados y agregarlos al contenido
                         for (let i = 0; i < tables.length; i++) {
                             const table = tables[i];
                             const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
                             const fsrNumeroCompleto = table.getElementsByTagName("FSR_NUMERO_COMPLETO")[0].textContent;
-                            console.log(`FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}`);
-                            //colocar los demas uwu
+
+                            // Agregar los resultados al contenido de la ventana
+                            var resultadoHTML = `<p>FSR_ID: ${fsrId}, FSR_NUMERO_COMPLETO: ${fsrNumeroCompleto}</p>`;
+                            contenido.innerHTML += resultadoHTML;
                         }
+
+                        // Crear botón de cierre
+                        var cerrarBoton = document.createElement("button");
+                        cerrarBoton.innerHTML = "Cerrar";
+                        cerrarBoton.addEventListener("click", function () {
+                            document.body.removeChild(ventana);
+                        });
+                        contenido.appendChild(cerrarBoton);
+
+                        // Cerrar la ventana al hacer clic fuera de ella
+                        ventana.addEventListener("click", function (event) {
+                            if (event.target === ventana) {
+                                document.body.removeChild(ventana);
+                            }
+                        });
+
+                        ventana.style.display = "block";
                     } else {
                         console.log("No se encontraron datos en la tabla.");
                     }
-
-
                 } catch (error) {
                     console.error("Error en la consulta del detalle de facturas del cliente:", error);
                 }
             }
+
 
             function consultaDetalleFacturasCliente() {
                 const cueId = document.getElementById('cueIdDetalleFacturas').value;
@@ -592,14 +742,14 @@
                 const url = "http://127.0.0.1:3000/api/principal.asmx";
 
                 const soapEnvelope = `
-          <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-            <soap:Body>
-              <SP_WS_CONSULTA_FACTURA_PROCESADA xmlns="http://tempuri.org/">
-                <LI_FSR_ID>${fsrId}</LI_FSR_ID>
-              </SP_WS_CONSULTA_FACTURA_PROCESADA>
-            </soap:Body>
-          </soap:Envelope>
-        `;
+      <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+        <soap:Body>
+          <SP_WS_CONSULTA_FACTURA_PROCESADA xmlns="http://tempuri.org/">
+            <LI_FSR_ID>${fsrId}</LI_FSR_ID>
+          </SP_WS_CONSULTA_FACTURA_PROCESADA>
+        </soap:Body>
+      </soap:Envelope>
+    `;
 
                 try {
                     const response = await fetch(url, {
@@ -620,23 +770,60 @@
 
                     const tables = Array.from(xmlDoc.getElementsByTagName("Table"));
 
+                    // Crear ventana flotante
+                    var ventana = document.createElement("div");
+                    ventana.classList.add("resultadoVentana");
+                    ventana.style.position = "fixed";
+                    ventana.style.top = "50%";
+                    ventana.style.left = "50%";
+                    ventana.style.transform = "translate(-50%, -50%)";
+                    ventana.style.background = "white";
+                    ventana.style.padding = "20px";
+                    ventana.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+                    document.body.appendChild(ventana);
+
+                    var contenido = document.createElement("div");
+                    contenido.setAttribute("id", "resultadoContenido");
+                    ventana.appendChild(contenido);
+
                     if (tables.length > 0) {
+                        // Iterar sobre los resultados y agregarlos al contenido
                         tables.forEach(table => {
                             const fsrId = table.getElementsByTagName("FSR_ID")[0].textContent;
                             const cueId = table.getElementsByTagName("CUE_ID")[0].textContent;
                             const cleCiRuc = table.getElementsByTagName("CLE_CI_RUC")[0].textContent;
 
-                            console.log(`FSR_ID: ${fsrId}, CUE_ID: ${cueId}, CLE_CI_RUC: ${cleCiRuc}`);
-                            // Agregar más campos según sea necesario
+                            // Agregar los resultados al contenido de la ventana
+                            var resultadoHTML = `<p>FSR_ID: ${fsrId}, CUE_ID: ${cueId}, CLE_CI_RUC: ${cleCiRuc}</p>`;
+                            contenido.innerHTML += resultadoHTML;
                         });
                     } else {
-                        console.log("No se encontraron datos en la tabla.");
+                        // Mostrar mensaje si no se encuentran datos
+                        contenido.innerHTML = "<p>No se encontraron datos en la tabla.</p>";
                     }
 
+                    // Crear botón de cierre
+                    var cerrarBoton = document.createElement("button");
+                    cerrarBoton.innerHTML = "Cerrar";
+                    cerrarBoton.addEventListener("click", function () {
+                        document.body.removeChild(ventana);
+                    });
+                    contenido.appendChild(cerrarBoton);
+
+                    // Cerrar la ventana al hacer clic fuera de ella
+                    ventana.addEventListener("click", function (event) {
+                        if (event.target === ventana) {
+                            document.body.removeChild(ventana);
+                        }
+                    });
+
+                    ventana.style.display = "block";
                 } catch (error) {
                     console.error("Error en la consulta de factura procesada:", error);
                 }
             }
+
+
 
             function consultaFacturaProcesada() {
                 const fsrId = document.getElementById('idFacturaProcesada').value;
@@ -719,27 +906,64 @@
                     }
 
                     const text = await response.text();
-                    console.log("Respuesta completa del servidor:", text);
 
                     const parser = new DOMParser();
                     const xmlDoc = parser.parseFromString(text, "text/xml");
 
                     const tables = Array.from(xmlDoc.getElementsByTagName("Table"));
 
+                    // Crear ventana flotante
+                    var ventana = document.createElement("div");
+                    ventana.classList.add("resultadoVentana");
+                    ventana.style.position = "fixed";
+                    ventana.style.top = "50%";
+                    ventana.style.left = "50%";
+                    ventana.style.transform = "translate(-50%, -50%)";
+                    ventana.style.background = "white";
+                    ventana.style.padding = "20px";
+                    ventana.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+                    document.body.appendChild(ventana);
+
+                    var contenido = document.createElement("div");
+                    contenido.setAttribute("id", "resultadoContenido");
+                    ventana.appendChild(contenido);
+
                     if (tables.length > 0) {
+                        // Iterar sobre los resultados y agregarlos al contenido
                         tables.forEach(table => {
                             const tipoFormaPago = table.querySelector("PRM_ID").textContent;
                             const descripcion = table.querySelector("PRM_DESCRIPCION").textContent;
-                            console.log(`Tipo de Forma de Pago: ${tipoFormaPago}, Descripción: ${descripcion}`);
-                            // Agregar lógica para mostrar otros datos si es necesario
+
+                            // Agregar los resultados al contenido de la ventana
+                            var resultadoHTML = `<p>Tipo de Forma de Pago: ${tipoFormaPago}, Descripción: ${descripcion}</p>`;
+                            contenido.innerHTML += resultadoHTML;
                         });
                     } else {
-                        console.log("No se encontraron datos en la tabla.");
+                        // Mostrar mensaje si no se encuentran datos
+                        contenido.innerHTML = "<p>No se encontraron datos en la tabla.</p>";
                     }
+
+                    // Crear botón de cierre
+                    var cerrarBoton = document.createElement("button");
+                    cerrarBoton.innerHTML = "Cerrar";
+                    cerrarBoton.addEventListener("click", function () {
+                        document.body.removeChild(ventana);
+                    });
+                    contenido.appendChild(cerrarBoton);
+
+                    // Cerrar la ventana al hacer clic fuera de ella
+                    ventana.addEventListener("click", function (event) {
+                        if (event.target === ventana) {
+                            document.body.removeChild(ventana);
+                        }
+                    });
+
+                    ventana.style.display = "block";
                 } catch (error) {
                     console.error("Error en la consulta de forma de pago:", error);
                 }
             }
+
 
 
             // Llamada a la función con un ejemplo de tipo de forma de pago
@@ -797,14 +1021,50 @@
 
                 const resultNode = xmlDoc.querySelector("SP_WS_USUARIO_FACTURACIONResult");
 
+                // Crear ventana flotante
+                var ventana = document.createElement("div");
+                ventana.classList.add("resultadoVentana");
+                ventana.style.position = "fixed";
+                ventana.style.top = "50%";
+                ventana.style.left = "50%";
+                ventana.style.transform = "translate(-50%, -50%)";
+                ventana.style.background = "white";
+                ventana.style.padding = "20px";
+                ventana.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+                document.body.appendChild(ventana);
+
+                var contenido = document.createElement("div");
+                contenido.setAttribute("id", "resultadoContenido");
+                ventana.appendChild(contenido);
+
                 if (resultNode) {
                     const resultado = resultNode.textContent;
-                    console.log("Resultado de la consulta de usuario de facturación:", resultado);
-                    // Puedes realizar acciones adicionales según sea necesario
+                    // Agregar el resultado al contenido de la ventana
+                    var resultadoHTML = `<p>Resultado de la consulta de usuario de facturación: ${resultado}</p>`;
+                    contenido.innerHTML = resultadoHTML;
                 } else {
-                    console.log("No se encontró el nodo de resultado en la respuesta.");
+                    // Mostrar mensaje si no se encuentra el nodo de resultado
+                    contenido.innerHTML = "<p>No se encontró el nodo de resultado en la respuesta.</p>";
                 }
+
+                // Crear botón de cierre
+                var cerrarBoton = document.createElement("button");
+                cerrarBoton.innerHTML = "Cerrar";
+                cerrarBoton.addEventListener("click", function () {
+                    document.body.removeChild(ventana);
+                });
+                contenido.appendChild(cerrarBoton);
+
+                // Cerrar la ventana al hacer clic fuera de ella
+                ventana.addEventListener("click", function (event) {
+                    if (event.target === ventana) {
+                        document.body.removeChild(ventana);
+                    }
+                });
+
+                ventana.style.display = "block";
             }
+
 
             function realizarAsignacionOpcionMenu() {
                 // Obtener los valores de los campos de entrada
@@ -833,12 +1093,13 @@
                 asignarOpcionMenu(lsUsrAutoriza, lsUsrAutorizado, lfCueId, lsFsrId, lfTotal, liFiltro);
             }
 
-            //CONSULTA 18
+
             function mostrarResultado(resultado) {
                 console.log("Resultado:", resultado);
                 // Puedes agregar lógica adicional para mostrar el resultado en tu página HTML
             }
 
+            //CONSULTA 18
             async function obtenerUsuarioAutorizado() {
                 console.log("Obteniendo Usuario Autorizado");
 
@@ -873,21 +1134,58 @@
 
                     const usuarios = Array.from(xmlDoc.getElementsByTagName("USR_USER")).map(usuario => usuario.textContent);
 
-                    if (usuarios.length > 0) {
-                        console.log("Usuarios Autorizados:", usuarios);
-                    } else {
-                        console.log("No se encontraron usuarios autorizados.");
-                    }
+                    // Mostrar los usuarios en la ventana flotante
+                    mostrarEnVentanaFlotante("Usuarios Autorizados", usuarios.join(", "));
                 } catch (error) {
                     console.error("Error al obtener información de usuario autorizado:", error);
                 }
             }
 
+            function mostrarEnVentanaFlotante(titulo, contenido) {
+                var ventana = document.createElement("div");
+                ventana.classList.add("resultadoVentana");
+                ventana.style.position = "fixed";
+                ventana.style.top = "50%";
+                ventana.style.left = "50%";
+                ventana.style.transform = "translate(-50%, -50%)";
+                ventana.style.background = "white";
+                ventana.style.padding = "20px";
+                ventana.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+                document.body.appendChild(ventana);
+
+                var contenidoElemento = document.createElement("div");
+                contenidoElemento.setAttribute("id", "resultadoContenido");
+                ventana.appendChild(contenidoElemento);
+
+                // Crear contenido HTML con título y usuarios
+                var htmlResultado = `<h3>${titulo}</h3>`;
+                htmlResultado += "<p>" + contenido + "</p>";
+
+                contenidoElemento.innerHTML = htmlResultado;
+
+                // Crear botón de cierre
+                var cerrarBoton = document.createElement("button");
+                cerrarBoton.innerHTML = "Cerrar";
+                cerrarBoton.addEventListener("click", function () {
+                    document.body.removeChild(ventana);
+                });
+                contenidoElemento.appendChild(cerrarBoton);
+
+                // Cerrar la ventana al hacer clic fuera de ella
+                ventana.addEventListener("click", function (event) {
+                    if (event.target === ventana) {
+                        document.body.removeChild(ventana);
+                    }
+                });
+
+                ventana.style.display = "block";
+            }
+
+
             //CONSULTA 19
             async function consultarFacturasAutorizadas() {
-                const url = "http://127.0.0.1:3000/api/principal.asmx";  // Ajusta la URL según tu entorno
+                const url = "http://127.0.0.1:3000/api/principal.asmx";
 
-                // Obtener los valores de los campos de entrada
                 const recaudador = document.getElementById('recaudador').value;
                 const cueId = document.getElementById('cueId').value;
 
@@ -917,7 +1215,7 @@
                     }
 
                     const text = await response.text();
-                    procesarRespuestaFacturasAutorizadas(text);
+                    mostrarEnVentanaFlotante("Resultado de Facturas Autorizadas", text);
 
                 } catch (error) {
                     console.error("Error en la consulta de facturas autorizadas:", error);
@@ -931,7 +1229,6 @@
                 const resultNode = xmlDoc.querySelector("SP_WS_FACTURAS_CLIENTE_AUTORIZADASResult");
 
                 if (resultNode) {
-                    // Puedes procesar y mostrar los datos de la respuesta según tus necesidades
                     const tables = Array.from(resultNode.getElementsByTagName("Table"));
 
                     if (tables.length > 0) {
@@ -951,6 +1248,47 @@
                     console.log("No se encontró el nodo de resultado en la respuesta.");
                 }
             }
+
+            function mostrarEnVentanaFlotante(titulo, contenido) {
+                var ventana = document.createElement("div");
+                ventana.classList.add("resultadoVentana");
+                ventana.style.position = "fixed";
+                ventana.style.top = "50%";
+                ventana.style.left = "50%";
+                ventana.style.transform = "translate(-50%, -50%)";
+                ventana.style.background = "white";
+                ventana.style.padding = "20px";
+                ventana.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+                document.body.appendChild(ventana);
+
+                var contenidoElemento = document.createElement("div");
+                contenidoElemento.setAttribute("id", "resultadoContenido");
+                ventana.appendChild(contenidoElemento);
+
+                // Crear contenido HTML con título y contenido
+                var htmlResultado = `<h3>${titulo}</h3>`;
+                htmlResultado += "<p>" + contenido + "</p>";
+
+                contenidoElemento.innerHTML = htmlResultado;
+
+                // Crear botón de cierre
+                var cerrarBoton = document.createElement("button");
+                cerrarBoton.innerHTML = "Cerrar";
+                cerrarBoton.addEventListener("click", function () {
+                    document.body.removeChild(ventana);
+                });
+                contenidoElemento.appendChild(cerrarBoton);
+
+                // Cerrar la ventana al hacer clic fuera de ella
+                ventana.addEventListener("click", function (event) {
+                    if (event.target === ventana) {
+                        document.body.removeChild(ventana);
+                    }
+                });
+
+                ventana.style.display = "block";
+            }
+
 
         </script>
 
